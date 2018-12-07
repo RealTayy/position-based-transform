@@ -1,1 +1,2 @@
 - Incorporate jQuery targeting for initialization
+- Maybe give mouse tracking a setTimeOut if performance is hammered too much

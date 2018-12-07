@@ -12,10 +12,10 @@ body {
   align-items: center;
 }
 
-#layered-container {
+#layered-content {
   position: relative;
-  height: 75%;
-  width: 75%;
+  height: 100%;
+  width: 100%;
 }
 
 #layered-img {
