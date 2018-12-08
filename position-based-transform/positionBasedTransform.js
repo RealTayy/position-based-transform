@@ -87,20 +87,26 @@ class PBTransform {
   // Helper function to get offset of mouse position relative to hoverTarget's center in percentage
   getOffset(mouseX, mouseY) {	
 	const hRect = this.hoverTarget.getBoundingClientRect();
-	// Variables needed to determine how far mouse is from middle of hoverTarget's center for X axis
+	// Determine how far mouse is from middle of hoverTarget's center for X axis
 	const xOffset = window.pageXOffset;
 	const hXStartPosition = xOffset + hRect.left;
 	const hXCenterPosition = hXStartPosition + (hRect.width/2);
 	const hXOffset = hXCenterPosition - mouseX;
 	const hXOffsetPercent = hXOffset / (hRect.width/2) * -100;		
-	// Variables needed to determine how far mouse is from middle of hoverTarget's center for Y axis
+	// Determine how far mouse is from middle of hoverTarget's center for Y axis
 	const yOffset = window.pageYOffset;		
 	const hYStartPosition = yOffset + hRect.top;	
 	const hYCenterPosition = hYStartPosition + (hRect.height/2);
 	const hYOffset = hYCenterPosition - mouseY;
 	const hYOffsetPercent = hYOffset / (hRect.height/2) * -100;	
+	// Determine how far mouse is from middle of hoverTarget's center for the hypotenuse
+	const hypotenuseLength = Math.hypot(hRect.width/2, hRect.height/2);
+	const hHOffset = Math.hypot(hXOffset, hYOffset);
+	const hHOffsetPercent = hHOffset / hypotenuseLength * 100
 	
-	return {x:hXOffsetPercent, y:hYOffsetPercent};
+	console.log(hHOffsetPercent);
+	
+	return {x:hXOffsetPercent, y:hYOffsetPercent, h:hypotenuseLength};
   }
   
   // Helper Function to see if mouse is within hoverTarget's DOM box whatever its called  
@@ -122,7 +128,7 @@ class PBTransform {
 
   // Tranform HERE
   transform(offset) {	  
-    console.log(this);
+//    console.log(offset);
   };
 
 }
