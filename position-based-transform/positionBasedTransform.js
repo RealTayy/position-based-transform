@@ -51,13 +51,16 @@ class PBTransform {
     const options = this.options;
     // if ignoreOther options always track mouse through all elements
     if (options.ignoreOthers) {
-      return document.addEventListener('mousemove', (e) => {        
-        const mouseX = e.pageX;
-        const mouseY = e.pageY;
-        // console.log(mouseX, mouseY);
-        const hoverTRect = this.hoverTarget.getBoundingClientRect();
-        console.log(hoverTRect);
-        // this.transform(e);
+      return document.addEventListener('mousemove', (e) => {
+		// Get mouse position relative to page
+		const mouseX = e.pageX;
+        const mouseY = e.pageY;                
+		// If hovering over hoverTarget then transform!
+		if (this.isHovering(mouseX, mouseY)) {
+			const offset = this.getOffset(mouseX, mouseY);
+			this.transform(offset);
+		};		
+		
       });
     };
     // if ignoreChildren was disable then only transform when hovering over parent but not it's children.
@@ -71,6 +74,43 @@ class PBTransform {
       this.transform(e);
     });
   };
+  
+  // Helper function to get offset of mouse position relative to hoverTarget's center in percentage
+  getOffset(mouseX, mouseY) {	
+	const hRect = this.hoverTarget.getBoundingClientRect();
+	// Variables needed to determine if mouse if within hoverTarget's X coordinates
+	const xOffset = window.pageXOffset;
+	const hXStartPosition = xOffset + hRect.left;
+	// Variables needed to determine if mouse if within hoverTarget's Y coordinates
+	const yOffset = window.pageYOffset;		
+	const hYStartPosition = yOffset + hRect.top;
+	// Variables needed to determine how far mouse is from middle of hoverTarget's center
+	const hXCenterPosition = hXStartPosition + (hRect.width/2);
+	const hXOffset = hXCenterPosition - mouseX;
+	const hXOffsetPercent = hXOffset / (hRect.width/2) * -100;		
+	const hYCenterPosition = hYStartPosition + (hRect.height/2);
+	const hYOffset = hYCenterPosition - mouseY;
+	const hYOffsetPercent = hYOffset / (hRect.height/2) * -100;	
+	
+	return {x:hXOffsetPercent, y:hYOffsetPercent};
+  }
+  
+  // Helper Function to see if mouse is within hoverTarget's DOM box whatever its called  
+  isHovering(mouseX, mouseY) {
+	const hRect = this.hoverTarget.getBoundingClientRect();
+	// Variables needed to determine if mouse if within hoverTarget's X coordinates
+	const xOffset = window.pageXOffset;
+	const hXStartPosition = xOffset + hRect.left;
+	const hXEndPosition = hXStartPosition + hRect.width;		
+	const withinX = mouseX >= hXStartPosition && mouseX <= hXEndPosition
+	// Variables needed to determine if mouse if within hoverTarget's Y coordinates
+	const yOffset = window.pageYOffset;		
+	const hYStartPosition = yOffset + hRect.top;
+	const hYEndPosition = hYStartPosition + hRect.height;
+	const withinY = mouseY >= hYStartPosition && mouseY <= hYEndPosition		
+	
+	return (withinX && withinY)		
+  }
 
   transform(e) {
     console.log('transforming!');

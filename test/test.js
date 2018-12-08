@@ -5,8 +5,6 @@ const ofhBox = document.getElementById('overflow-hidden');
 
 const layBox = document.getElementById('layered-box');
 
-// console.log(allBoxes);
-
 const layOptions = {
 	ignoreOthers: true
 }
