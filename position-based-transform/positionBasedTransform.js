@@ -4,23 +4,26 @@ function pBTransform(target, options) {
 
   // Check if target if Native DOM element and return pBTransform Instance
   // If targeted by getElementById()
-  if (target instanceof Element) {
-    console.log('getElementById')
+  if (target instanceof Element) {    
     return new PBTransform(target, options);
   }
   // Else if targeted by getElementByClassName()
   else if (target instanceof HTMLCollection) {
     // Else if target has multiple elements in it return array of instance    
-    if (target.length === 1) {
-      console.log('ByClassName single');
+    if (target.length === 1) {      
       return new PBTransform(target[0], options);
     }
     // Else if target has multiple elements in it return array of instance
     else if (target.length > 1) {
-      console.log('ByClassName multiple');
+      let instances = []
+	  for (let i = 0; i < target.length; i++) {
+		const instance = new PBTransform(target[i], options);
+		instances.push(instance);
+	  }
+	  return instances;
     };
   }
-  else throw TypeError('Target must be a HTMLCollection or Element');
+  else throw TypeError('Target must be a valid HTMLCollection or Element');
 };
 
 class PBTransform {
@@ -51,43 +54,48 @@ class PBTransform {
     const options = this.options;
     // if ignoreOther options always track mouse through all elements
     if (options.ignoreOthers) {
-      return document.addEventListener('mousemove', (e) => {
-		// Get mouse position relative to page
+      return document.addEventListener('mousemove', (e) => {		
 		const mouseX = e.pageX;
         const mouseY = e.pageY;                
 		// If hovering over hoverTarget then transform!
 		if (this.isHovering(mouseX, mouseY)) {
-			const offset = this.getOffset(mouseX, mouseY);
-			this.transform(offset);
-		};		
-		
+		  const offset = this.getOffset(mouseX, mouseY);
+		  this.transform(offset);
+		};				
       });
     };
     // if ignoreChildren was disable then only transform when hovering over parent but not it's children.
     if (!options.ignoreChildren) {
       return this.hoverTarget.addEventListener('mousemove', (e) => {
-        if (e.target === this.hoverTarget) this.transform(e);
+        if (e.target === this.hoverTarget) {
+		  const mouseX = e.pageX;
+		  const mouseY = e.pageY;                
+		  const offset = this.getOffset(mouseX, mouseY);
+		  this.transform(offset)
+	    };
       });
     };
     // else track mouse only when hovering over parent ignoring children but not other elements
     return this.hoverTarget.addEventListener('mousemove', (e) => {
-      this.transform(e);
+	  const mouseX = e.pageX;
+	  const mouseY = e.pageY;                
+	  const offset = this.getOffset(mouseX, mouseY);
+      this.transform(offset);
     });
   };
   
   // Helper function to get offset of mouse position relative to hoverTarget's center in percentage
   getOffset(mouseX, mouseY) {	
 	const hRect = this.hoverTarget.getBoundingClientRect();
-	// Variables needed to determine if mouse if within hoverTarget's X coordinates
+	// Variables needed to determine how far mouse is from middle of hoverTarget's center for X axis
 	const xOffset = window.pageXOffset;
 	const hXStartPosition = xOffset + hRect.left;
-	// Variables needed to determine if mouse if within hoverTarget's Y coordinates
-	const yOffset = window.pageYOffset;		
-	const hYStartPosition = yOffset + hRect.top;
-	// Variables needed to determine how far mouse is from middle of hoverTarget's center
 	const hXCenterPosition = hXStartPosition + (hRect.width/2);
 	const hXOffset = hXCenterPosition - mouseX;
 	const hXOffsetPercent = hXOffset / (hRect.width/2) * -100;		
+	// Variables needed to determine how far mouse is from middle of hoverTarget's center for Y axis
+	const yOffset = window.pageYOffset;		
+	const hYStartPosition = yOffset + hRect.top;	
 	const hYCenterPosition = hYStartPosition + (hRect.height/2);
 	const hYOffset = hYCenterPosition - mouseY;
 	const hYOffsetPercent = hYOffset / (hRect.height/2) * -100;	
@@ -112,8 +120,9 @@ class PBTransform {
 	return (withinX && withinY)		
   }
 
-  transform(e) {
-    console.log('transforming!');
+  // Tranform HERE
+  transform(offset) {	  
+    console.log(this);
   };
 
 }

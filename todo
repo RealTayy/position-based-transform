@@ -1,4 +1,2 @@
 - Incorporate jQuery targeting for initialization
 - Maybe give mouse tracking a setTimeOut if performance is hammered too much
-- Finish targeting array of HTML whatever
-- Clean up comments of getOffset

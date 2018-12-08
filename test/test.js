@@ -6,7 +6,7 @@ const ofhBox = document.getElementById('overflow-hidden');
 const layBox = document.getElementById('layered-box');
 
 const layOptions = {
-	ignoreOthers: true
+	
 }
-const layInstance = pBTransform(layBox, layOptions);
-// const fsInstance = pBTransform(fsBox);
+
+pBTransform(layBox);
