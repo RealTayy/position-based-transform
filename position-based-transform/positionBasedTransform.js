@@ -34,6 +34,13 @@ class PBTransform {
       hoverTarget: transformTarget,
       ignoreOthers: false,
       ignoreChildren: true,
+	  updateRate: 35,
+	  maxXOffset: "10%",
+	  maxYOffset: "10%",
+	  maxXRotate: 5,
+	  maxYRotate: 5,
+	  duration: "700ms",
+	  easing: "cubic-bezier(0.215, 0.61, 0.355, 1)" //aka easeOutCubic
     };
     // Create options from defaultOptions and passed in custom options
     this.options = {
@@ -45,6 +52,7 @@ class PBTransform {
     // Instance properties
     this.transformTarget = options.transformTarget;
     this.hoverTarget = options.hoverTarget;
+	this.canUpdate = true;
 
     // Initialize PBT
     this.init();
@@ -55,6 +63,7 @@ class PBTransform {
     // if ignoreOther options always track mouse through all elements
     if (options.ignoreOthers) {
       return document.addEventListener('mousemove', (e) => {		
+		if(!this.getCanUpdate()) return;
 		const mouseX = e.pageX;
         const mouseY = e.pageY;                
 		// If hovering over hoverTarget then transform!
@@ -67,16 +76,19 @@ class PBTransform {
     // if ignoreChildren was disable then only transform when hovering over parent but not it's children.
     if (!options.ignoreChildren) {
       return this.hoverTarget.addEventListener('mousemove', (e) => {
-        if (e.target === this.hoverTarget) {
+        if(!this.getCanUpdate()) return;
+		if (e.target === this.hoverTarget) {
 		  const mouseX = e.pageX;
 		  const mouseY = e.pageY;                
 		  const offset = this.getOffset(mouseX, mouseY);
-		  this.transform(offset)
+		  this.transform(offset);
 	    };
       });
     };
     // else track mouse only when hovering over parent ignoring children but not other elements
-    return this.hoverTarget.addEventListener('mousemove', (e) => {
+    return this.hoverTarget.addEventListener('mousemove', (e) => {	  	  
+	  if(!this.getCanUpdate()) return;
+	  
 	  const mouseX = e.pageX;
 	  const mouseY = e.pageY;                
 	  const offset = this.getOffset(mouseX, mouseY);
@@ -102,9 +114,7 @@ class PBTransform {
 	// Determine how far mouse is from middle of hoverTarget's center for the hypotenuse
 	const hypotenuseLength = Math.hypot(hRect.width/2, hRect.height/2);
 	const hHOffset = Math.hypot(hXOffset, hYOffset);
-	const hHOffsetPercent = hHOffset / hypotenuseLength * 100
-	
-	console.log(hHOffsetPercent);
+	const hHOffsetPercent = hHOffset / hypotenuseLength * 100	
 	
 	return {x:hXOffsetPercent, y:hYOffsetPercent, h:hypotenuseLength};
   }
@@ -126,9 +136,48 @@ class PBTransform {
 	return (withinX && withinY)		
   }
 
-  // Tranform HERE
-  transform(offset) {	  
-//    console.log(offset);
+  // Helper Function to see if you can update based off updateRate
+  getCanUpdate() {
+    if (!this.canUpdate) return false;
+    else {
+	  this.canUpdate = false;	  
+      setTimeout(()=>{this.canUpdate = true}, this.options.updateRate)
+	  return true;
+	};
   };
+    
+  // Tranform HERE
+  transform(offset) {	  	
+    // Options
+	const options = this.options;
+	const maxXOffset = options.maxXOffset;
+	const maxYOffset = options.maxYOffset;
+	const maxXRotate = options.maxXRotate;
+	const maxYRotate = options.maxYRotate;	
+	const duration = options.duration;
+	const easing = options.easing;
+	
+	// Break maxXOffset into unit and value to calculate translateValue
+	const maxXOffsetValue = parseFloat(/^(\d+)(\D+)$/.exec(maxXOffset)[1]);
+	const xOffsetValue = maxXOffsetValue * (offset.x / 100);
+	const xOffsetUnit = /^(\d+)(\D+)$/.exec(maxXOffset)[2];	
 
+	// Break maxYOffset into unit and value to calculate translateValue
+	const maxYOffsetValue = parseFloat(/^(\d+)(\D+)$/.exec(maxYOffset)[1]);
+	const yOffsetValue = maxYOffsetValue * (offset.y / 100);
+	const yOffsetUnit = /^(\d+)(\D+)$/.exec(maxYOffset)[2];
+	
+	// Calculate rotateValue
+	const maxXRotateValue = maxXRotate * (offset.x / 100);
+	const maxYRotateValue = maxYRotate * (offset.y / 100);
+	const rorateValue = maxXRotateValue + maxYRotateValue;
+
+	// Concatenate transform value(s) and apply it to transformCSS
+	const translateCSS = `translate(${xOffsetValue + xOffsetUnit},${yOffsetValue + yOffsetUnit})`;
+	const rotateCSS = `rotate(${maxXRotateValue + maxYRotateValue}deg)`
+	const transformCSS = `${translateCSS} ${rotateCSS}`;
+    this.transformTarget.style.transform = transformCSS	;
+	this.transformTarget.style.transitionDuration = duration;
+	this.transformTarget.style.transitionTimingFunction = easing;
+  };
 }

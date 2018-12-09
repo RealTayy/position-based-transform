@@ -4,9 +4,12 @@ const allBoxes = document.getElementsByClassName('box');
 const ofhBox = document.getElementById('overflow-hidden');
 
 const layBox = document.getElementById('layered-box');
+const layContent = document.getElementById('layered-content');
 
 const layOptions = {
-	
+	hoverTarget: layBox,
+	//maxXOffset: "50%",
+	//duration: "3s"
 }
 
-pBTransform(layBox);
+pBTransform(layContent, layOptions);
