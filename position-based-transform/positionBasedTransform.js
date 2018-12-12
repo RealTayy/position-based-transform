@@ -32,22 +32,22 @@ class PBTransform {
 		const defaultOptions = {
 			transformTarget: transformTarget,
 			hoverTarget: transformTarget,
-			ignoreOthers: true,
+			ignoreOthers: false,
 			ignoreChildren: true,
-			updateRate: 35,
+			updateRate: 40,
 			maxXOffset: "10%",
 			maxYOffset: "10%",
 			maxXRotate: 5,
-			maxYRotate: 10,
+			maxYRotate: 5,
 			rotateStyle: 1,
-			duration: "700ms",
-			easing: "cubic-bezier(0.215, 0.61, 0.355, 1)",
-			resetOnMouseLeave: true, //aka easeOutCubic
 			initialTransform: {
 				rotate: "0deg",
 				translateX: "0px",
 				translateY: "0px",
 			},
+			duration: "700ms",
+			easing: "cubic-bezier(0.215, 0.61, 0.355, 1)",
+			resetOnMouseLeave: true, //aka easeOutCubic
 		};
 		// Create options from defaultOptions and passed in custom options
 		this.options = {
@@ -239,13 +239,15 @@ class PBTransform {
 		const translateCSS = `translate(calc(${xOffsetValue + xOffsetUnit} + ${initialTranslateX}), calc(${yOffsetValue + yOffsetUnit} + ${initialTranslateY}))`;
 		const rotateCSS = `rotate(calc(${rotateValue}deg + ${initialRotate}))`;
 		const transformCSS = `${translateCSS} ${rotateCSS}`;
+		this.transformTarget.style.webkitTransform = transformCSS;
+		this.transformTarget.style.MozTransform = transformCSS;
+		this.transformTarget.style.msTransform = transformCSS;
+		this.transformTarget.style.OTransform = transformCSS;
 		this.transformTarget.style.transform = transformCSS;
 		this.transformTarget.style.transitionDuration = duration;
 		this.transformTarget.style.transitionTimingFunction = easing;
-		console.log(initialTransform)
 	};
 
-	// TODO: resetPosition should get the initial properties of transform target instead of just setting transform to nothing.
 	// Function to reset position of transform target
 	resetPosition() {
 		this.transformTarget.style.transform = '';

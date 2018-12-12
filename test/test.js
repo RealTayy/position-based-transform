@@ -14,14 +14,8 @@ const layOptions = {
 	hoverTarget: layBox,
 }
 
-// pBTransform(layContent, layOptions);
-// pBTransform(layImg, {...layOptions, rotateStyle: 1});
-// pBTransform(layBehind, {...layOptions, rotateStyle: 3});
-// pBTransform(layTextOne, {...layOptions, rotateStyle: 2});
-pBTransform(layTextTwo, {
-	...layOptions, initialTransform: {
-		rotate: "-90deg",
-		translateX: "50px",
-		translateY: "50px",
-	}
-});
+pBTransform(layContent, { ...layOptions });
+pBTransform(layImg, { ...layOptions });
+pBTransform(layBehind, { ...layOptions });
+pBTransform(layTextOne, { ...layOptions });
+pBTransform(layTextTwo, { ...layOptions, initialTransform: { rotate: "-90deg" } });
