@@ -2,3 +2,4 @@
 - Do I need to calc the hypo? Probably not
 - Use getComputedStyle() & getPropertyValue() to determine starting transform values so you can use library on properties with transforms already on them.
 - resetPosition should get the initial properties of transform target instead of just setting transform to nothing.
+- Add prefixers to style.transform

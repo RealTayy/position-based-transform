@@ -15,7 +15,13 @@ const layOptions = {
 }
 
 // pBTransform(layContent, layOptions);
-pBTransform(layImg, {...layOptions, rotateStyle: 1});
-pBTransform(layBehind, {...layOptions, rotateStyle: 3});
-pBTransform(layTextOne, {...layOptions, rotateStyle: 2});
-pBTransform(layTextTwo, {...layOptions, rotateStyle: 4});
+// pBTransform(layImg, {...layOptions, rotateStyle: 1});
+// pBTransform(layBehind, {...layOptions, rotateStyle: 3});
+// pBTransform(layTextOne, {...layOptions, rotateStyle: 2});
+pBTransform(layTextTwo, {
+	...layOptions, initialTransform: {
+		rotate: "-90deg",
+		translateX: "50px",
+		translateY: "50px",
+	}
+});

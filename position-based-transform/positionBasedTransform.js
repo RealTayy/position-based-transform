@@ -27,7 +27,7 @@ function pBTransform(target, options) {
 };
 
 class PBTransform {
-	constructor(transformTarget, options) {
+	constructor(transformTarget, options = {}) {
 		// Default options
 		const defaultOptions = {
 			transformTarget: transformTarget,
@@ -43,11 +43,20 @@ class PBTransform {
 			duration: "700ms",
 			easing: "cubic-bezier(0.215, 0.61, 0.355, 1)",
 			resetOnMouseLeave: true, //aka easeOutCubic
+			initialTransform: {
+				rotate: "0deg",
+				translateX: "0px",
+				translateY: "0px",
+			},
 		};
 		// Create options from defaultOptions and passed in custom options
 		this.options = {
 			...defaultOptions,
-			...options
+			...options,
+			initialTransform: {
+				...defaultOptions.initialTransform,
+				...options.initialTransform,
+			}
 		};
 		options = this.options;
 
@@ -139,7 +148,7 @@ class PBTransform {
 		return { x: hXOffsetPercent, y: hYOffsetPercent, h: hHOffsetPercent };
 	};
 
-	// Helper Function to see if mouse is within hoverTarget's DOM box whatever its called  
+	// Helper function to see if mouse is within hoverTarget's DOM box whatever its called  
 	isHovering(mouseX, mouseY) {
 		const hRect = this.hoverTarget.getBoundingClientRect();
 		// Variables needed to determine if mouse if within hoverTarget's X coordinates
@@ -156,7 +165,7 @@ class PBTransform {
 		return (withinX && withinY);
 	};
 
-	// Helper Function to see if you can update based off updateRate
+	// Helper function to see if you can update based off updateRate
 	getCanUpdate() {
 		if (!this.canUpdate) return false;
 		else {
@@ -177,6 +186,10 @@ class PBTransform {
 		const rotateStyle = options.rotateStyle;
 		const duration = options.duration;
 		const easing = options.easing;
+		const initialTransform = options.initialTransform;
+		const initialRotate = initialTransform.rotate;
+		const initialTranslateX = initialTransform.translateX;
+		const initialTranslateY = initialTransform.translateY;
 
 		// Break maxXOffset into unit and value to calculate translateValue
 		const maxXOffsetValue = parseFloat(/^(\d+)(\D+)$/.exec(maxXOffset)[1]);
@@ -223,17 +236,18 @@ class PBTransform {
 		}
 
 		// Concatenate transform value(s) and apply it to transformCSS
-		const translateCSS = `translate(${xOffsetValue + xOffsetUnit},${yOffsetValue + yOffsetUnit})`;
-		const rotateCSS = `rotate(${rotateValue}deg)`
+		const translateCSS = `translate(calc(${xOffsetValue + xOffsetUnit} + ${initialTranslateX}), calc(${yOffsetValue + yOffsetUnit} + ${initialTranslateY}))`;
+		const rotateCSS = `rotate(calc(${rotateValue}deg + ${initialRotate}))`;
 		const transformCSS = `${translateCSS} ${rotateCSS}`;
 		this.transformTarget.style.transform = transformCSS;
 		this.transformTarget.style.transitionDuration = duration;
 		this.transformTarget.style.transitionTimingFunction = easing;
+		console.log(initialTransform)
 	};
 
 	// TODO: resetPosition should get the initial properties of transform target instead of just setting transform to nothing.
 	// Function to reset position of transform target
-	resetPosition() {		
+	resetPosition() {
 		this.transformTarget.style.transform = '';
 	};
 }
