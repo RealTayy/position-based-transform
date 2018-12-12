@@ -4,9 +4,14 @@ const allBoxes = document.getElementsByClassName('box');
 const ofhBox = document.getElementById('overflow-hidden');
 
 const layBox = document.getElementById('layered-box');
+const layContent = document.getElementById('layered-content');
+const layImg = document.getElementById('layered-img');
+const layBehind = document.getElementById('layered-behind');
+const layTextOne = document.getElementById('layered-text-one');
+const layTextTwo = document.getElementById('layered-text-two');
 
-const layOptions = {
-	
-}
+const overflowHidden = document.getElementById('overflow-hidden');
+const overflowImgBox = document.getElementById('overflow-img-box');
 
-pBTransform(layBox);
+pBTransform(layContent, { hoverTarget: layBox });
+pBTransform(overflowImgBox, { hoverTarget: overflowHidden, });

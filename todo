@@ -1,2 +1,2 @@
 - Incorporate jQuery targeting for initialization
-- Maybe give mouse tracking a setTimeOut if performance is hammered too much
+- Do I need to calc the hypo? Probably not
