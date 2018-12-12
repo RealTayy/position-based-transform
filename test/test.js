@@ -5,11 +5,17 @@ const ofhBox = document.getElementById('overflow-hidden');
 
 const layBox = document.getElementById('layered-box');
 const layContent = document.getElementById('layered-content');
+const layImg = document.getElementById('layered-img');
+const layBehind = document.getElementById('layered-behind');
+const layTextOne = document.getElementById('layered-text-one');
+const layTextTwo = document.getElementById('layered-text-two');
 
 const layOptions = {
 	hoverTarget: layBox,
-	//maxXOffset: "50%",
-	//duration: "3s"
 }
 
-pBTransform(layContent, layOptions);
+// pBTransform(layContent, layOptions);
+pBTransform(layImg, {...layOptions, rotateStyle: 1});
+pBTransform(layBehind, {...layOptions, rotateStyle: 3});
+pBTransform(layTextOne, {...layOptions, rotateStyle: 2});
+pBTransform(layTextTwo, {...layOptions, rotateStyle: 4});
