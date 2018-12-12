@@ -10,12 +10,8 @@ const layBehind = document.getElementById('layered-behind');
 const layTextOne = document.getElementById('layered-text-one');
 const layTextTwo = document.getElementById('layered-text-two');
 
-const layOptions = {
-	hoverTarget: layBox,
-}
+const overflowHidden = document.getElementById('overflow-hidden');
+const overflowImgBox = document.getElementById('overflow-img-box');
 
-pBTransform(layContent, { ...layOptions });
-pBTransform(layImg, { ...layOptions });
-pBTransform(layBehind, { ...layOptions });
-pBTransform(layTextOne, { ...layOptions });
-pBTransform(layTextTwo, { ...layOptions, initialTransform: { rotate: "-90deg" } });
+pBTransform(layContent, { hoverTarget: layBox });
+pBTransform(overflowImgBox, { hoverTarget: overflowHidden, });
