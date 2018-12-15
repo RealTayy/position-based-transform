@@ -1,4 +1,4 @@
-# position-based-transform
+# Position Based Transform
 Dependency free library for CSS transform effects based on mouse position.
 
 ## Demos & Documentation
@@ -7,7 +7,7 @@ Demos coming soon.
 Documentation site coming soon. For now refer to the [**Documentation**]() section below.
 
 ## Getting Started
-Currently the only way to use Position Based Transform is to manually [download]() and link `positionBasedTransform.min.js` in your HTML
+Currently the only way to use Position **Based** Transform is to manually [download]() and link `positionBasedTransform.min.js` in your HTML
 ```html
 <body>
 	<!-- Your HTML body stuff goes here --->

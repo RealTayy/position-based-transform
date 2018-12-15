@@ -18,7 +18,7 @@ function pBTransform(target, options) {
 	// Else if targeted by getElementByClassName()
 	else if (target instanceof HTMLCollection) {
 		// Else if target has multiple elements in it return array of instance    
-		if (target.length === 1) {			
+		if (target.length === 1) {
 			return new PBTransform(target[0], options);
 		}
 		// Else if target has multiple elements in it return array of instance
@@ -45,8 +45,12 @@ class PBTransform {
 			updateRate: 40,
 			maxXOffset: "2.5%",
 			maxYOffset: "2.5%",
-			maxXRotate: 2.5,
-			maxYRotate: 2.5,
+			maxXRotateX: 5,
+			maxYRotateX: 5,
+			maxXRotateY: 5,
+			maxYRotateY: 5,
+			maxXRotateZ: 2.5,
+			maxYRotateZ: 2.5,
 			rotateStyle: 1,
 			scale: 1.05,
 			initialTransform: {
@@ -106,7 +110,6 @@ class PBTransform {
 		else {
 			// if resetOnMouseLeave is true then add eventListener to reset on mouse leave
 			if (options.resetOnMouseLeave) {
-				console.log(this);
 				this.hoverTarget.addEventListener('mouseleave', () => {
 					this.resetPosition();
 				});
@@ -192,8 +195,8 @@ class PBTransform {
 		const maxXOffset = options.maxXOffset;
 		const maxYOffset = options.maxYOffset;
 		const disableRotate = options.disableRotate;
-		const maxXRotate = options.maxXRotate;
-		const maxYRotate = options.maxYRotate;
+		const maxXRotateZ = options.maxXRotateZ;
+		const maxYRotateZ = options.maxYRotateZ;
 		const rotateStyle = options.rotateStyle;
 		const duration = options.duration;
 		const easing = options.easing;
@@ -217,46 +220,47 @@ class PBTransform {
 		let rotateValue, rotateMultiplier, xRotateValue, yRotateValue, totalRotate, xMultiplier, yMultiplier, maxMultiplier
 
 		// If disableRotate is true or maxRotate are 0 then don't rotate. duh.
-		if (disableRotate || (maxXRotate === 0 && maxYRotate === 0)) rotateValue = 0;
+		if (disableRotate || (maxXRotateZ === 0 && maxYRotateZ === 0)) rotateValue = 0;
 		else {
 			switch (rotateStyle) {
 				case 1:
-					totalRotate = maxXRotate + maxYRotate;
-					xMultiplier = (maxXRotate / totalRotate) * 200;
-					yMultiplier = (maxYRotate / totalRotate) * 200;
+					totalRotate = maxXRotateZ + maxYRotateZ;
+					xMultiplier = (maxXRotateZ / totalRotate) * 200;
+					yMultiplier = (maxYRotateZ / totalRotate) * 200;
 					maxMultiplier = xMultiplier * yMultiplier || xMultiplier || yMultiplier;
 					xRotateValue = (xMultiplier * offset.x) / 100 || 1;
 					yRotateValue = (yMultiplier * offset.y) / 100 || 1;
 					rotateValue = totalRotate * (xRotateValue * yRotateValue) / maxMultiplier;
 					break;
 				case 2:
-					totalRotate = maxXRotate + maxYRotate;
-					xMultiplier = (maxXRotate / totalRotate) * 200;
-					yMultiplier = (maxYRotate / totalRotate) * 200;
+					totalRotate = maxXRotateZ + maxYRotateZ;
+					xMultiplier = (maxXRotateZ / totalRotate) * 200;
+					yMultiplier = (maxYRotateZ / totalRotate) * 200;
 					maxMultiplier = xMultiplier * yMultiplier || xMultiplier || yMultiplier;;
 					xRotateValue = (xMultiplier * offset.x) / 100 || 1;
 					yRotateValue = (yMultiplier * offset.y) / 100 || 1;
 					rotateValue = -totalRotate * (xRotateValue * yRotateValue) / maxMultiplier;
 					break;
 				case 3:
-					rotateMultiplier = (maxXRotate) ? (maxYRotate / maxXRotate) * ((offset.y + 100) / 200) : 0;
-					xRotateValue = maxXRotate * (offset.x / 100);
-					yRotateValue = rotateMultiplier * xRotateValue || maxYRotate * (offset.y / 100);
+					rotateMultiplier = (maxXRotateZ) ? (maxYRotateZ / maxXRotateZ) * ((offset.y + 100) / 200) : 0;
+					xRotateValue = maxXRotateZ * (offset.x / 100);
+					yRotateValue = rotateMultiplier * xRotateValue || maxYRotateZ * (offset.y / 100);
 					rotateValue = xRotateValue + yRotateValue;
 					break;
 				case 4:
-					xRotateValue = maxXRotate * (offset.x / 100);
-					yRotateValue = maxYRotate * (offset.y / 100);
+					xRotateValue = maxXRotateZ * (offset.x / 100);
+					yRotateValue = maxYRotateZ * (offset.y / 100);
 					rotateValue = xRotateValue + yRotateValue;
 					break;
 			}
 		}
 
 		// Concatenate transform value(s) and apply it to transformCSS
+		const perpectiveCSS = "perspective(300px)";
 		const translateCSS = `translate(calc(${xOffsetValue + xOffsetUnit} + ${initialTranslateX}), calc(${yOffsetValue + yOffsetUnit} + ${initialTranslateY}))`;
-		const rotateCSS = `rotate(calc(${rotateValue}deg + ${initialRotate}))`;
+		const rotateZCSS = `rotateZ(calc(${rotateValue}deg + ${initialRotate}))`;
 		const scaleCSS = `scale(${scale})`
-		const transformCSS = `${translateCSS} ${rotateCSS} ${scaleCSS}`;
+		const transformCSS = `${perpectiveCSS} ${translateCSS} ${scaleCSS} ${rotateZCSS}`;
 		// console.log(transformCSS);
 		this.transformTarget.style.webkitTransform = transformCSS;
 		this.transformTarget.style.MozTransform = transformCSS;
@@ -269,6 +273,6 @@ class PBTransform {
 
 	// Function to reset position of transform target
 	resetPosition() {
-		this.transformTarget.style.transform = '';
+		this.transformTarget.style.transform = 'perspective(300px)';
 	};
 }
