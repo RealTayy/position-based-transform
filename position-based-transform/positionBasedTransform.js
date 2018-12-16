@@ -43,18 +43,20 @@ class PBTransform {
 			ignoreOthers: false,
 			ignoreChildren: true,
 			updateRate: 40,
-			maxXOffset: "2.5%",
-			maxYOffset: "2.5%",
-			maxXRotateX: 5,
-			maxYRotateX: 5,
-			maxXRotateY: 5,
-			maxYRotateY: 5,
-			maxXRotateZ: 2.5,
-			maxYRotateZ: 2.5,
+			maxXOffset: "0px",
+			maxYOffset: "0px",
+			maxXRotateX: 0,
+			maxYRotateX: 0,
+			maxXRotateY: 0,
+			maxYRotateY: 0,
+			maxXRotateZ: 0,
+			maxYRotateZ: 0,
 			rotateStyle: 1,
-			scale: 1.05,
+			scale: 1.00,
 			initialTransform: {
-				rotate: "0deg",
+				rotateZ: "0deg",
+				rotateX: "0deg",
+				rotateY: "0deg",
 				translateX: "0px",
 				translateY: "0px",
 			},
@@ -193,35 +195,48 @@ class PBTransform {
 		// Options
 		const options = this.options;
 		const maxXOffset = options.maxXOffset;
-		const maxYOffset = options.maxYOffset;
-		const disableRotate = options.disableRotate;
+		const maxYOffset = options.maxYOffset;		
 		const maxXRotateZ = options.maxXRotateZ;
 		const maxYRotateZ = options.maxYRotateZ;
+		const maxXRotateX = options.maxXRotateX;
+		const maxYRotateX = options.maxYRotateX;
+		const maxXRotateY = options.maxXRotateY;
+		const maxYRotateY = options.maxYRotateY;
 		const rotateStyle = options.rotateStyle;
 		const duration = options.duration;
 		const easing = options.easing;
 		const initialTransform = options.initialTransform;
-		const initialRotate = initialTransform.rotate;
+		const initialRotateZ = initialTransform.rotateZ;
+		const initialRotateX = initialTransform.rotateX;
+		const initialRotateY = initialTransform.rotateY;
 		const initialTranslateX = initialTransform.translateX;
 		const initialTranslateY = initialTransform.translateY;
 		const scale = options.scale;
 
-		// Break maxXOffset into unit and value to calculate translateValue
-		const maxXOffsetValue = parseFloat(/^([\d.]+)(\D+)$/.exec(maxXOffset)[1]);
-		const xOffsetValue = maxXOffsetValue * (offset.x / 100);
-		const xOffsetUnit = /^([\d.]+)(\D+)$/.exec(maxXOffset)[2];
-
-		// Break maxYOffset into unit and value to calculate translateValue
-		const maxYOffsetValue = parseFloat(/^([\d.]+)(\D+)$/.exec(maxYOffset)[1]);
-		const yOffsetValue = maxYOffsetValue * (offset.y / 100);
-		const yOffsetUnit = /^([\d.]+)(\D+)$/.exec(maxYOffset)[2];
-
-		// Calculate rotateValue for different options
-		let rotateValue, rotateMultiplier, xRotateValue, yRotateValue, totalRotate, xMultiplier, yMultiplier, maxMultiplier
-
-		// If disableRotate is true or maxRotate are 0 then don't rotate. duh.
-		if (disableRotate || (maxXRotateZ === 0 && maxYRotateZ === 0)) rotateValue = 0;
+		// Calculate translateCSS
+		let maxXOffsetValue, xOffsetValue, xOffsetUnit, maxYOffsetValue, yOffsetValue, yOffsetUnit;
+		// If maxXOffset is 0px then don't translate. duh.
+		if (maxXOffset === "0px") xOffsetValue = 0, xOffsetUnit = "px";
+		else {			
+			// Break maxXOffset into unit and value
+			maxXOffsetValue = parseFloat(/^([\d.]+)(\D+)$/.exec(maxXOffset)[1]);
+			xOffsetValue = maxXOffsetValue * (offset.x / 100);
+			xOffsetUnit = /^([\d.]+)(\D+)$/.exec(maxXOffset)[2];		
+		}
+		if (maxYOffset === "0px") yOffsetValue = 0, yOffsetUnit = "px";
 		else {
+			// Break maxYOffset into unit and value
+			maxYOffsetValue = parseFloat(/^([\d.]+)(\D+)$/.exec(maxYOffset)[1]);
+			yOffsetValue = maxYOffsetValue * (offset.y / 100);
+			yOffsetUnit = /^([\d.]+)(\D+)$/.exec(maxYOffset)[2];
+		}
+		
+		// Calculate rotateValueZ
+		let rotateValueZ;
+		// If maxXRotateZ and maxYRotateZ are 0 then don't rotate. duh.
+		if (maxXRotateZ === 0 && maxYRotateZ === 0) rotateValueZ = 0;
+		else {
+			let rotateMultiplier, xRotateValue, yRotateValue, totalRotate, xMultiplier, yMultiplier, maxMultiplier;
 			switch (rotateStyle) {
 				case 1:
 					totalRotate = maxXRotateZ + maxYRotateZ;
@@ -230,7 +245,7 @@ class PBTransform {
 					maxMultiplier = xMultiplier * yMultiplier || xMultiplier || yMultiplier;
 					xRotateValue = (xMultiplier * offset.x) / 100 || 1;
 					yRotateValue = (yMultiplier * offset.y) / 100 || 1;
-					rotateValue = totalRotate * (xRotateValue * yRotateValue) / maxMultiplier;
+					rotateValueZ = totalRotate * (xRotateValue * yRotateValue) / maxMultiplier;
 					break;
 				case 2:
 					totalRotate = maxXRotateZ + maxYRotateZ;
@@ -239,28 +254,43 @@ class PBTransform {
 					maxMultiplier = xMultiplier * yMultiplier || xMultiplier || yMultiplier;;
 					xRotateValue = (xMultiplier * offset.x) / 100 || 1;
 					yRotateValue = (yMultiplier * offset.y) / 100 || 1;
-					rotateValue = -totalRotate * (xRotateValue * yRotateValue) / maxMultiplier;
+					rotateValueZ = -totalRotate * (xRotateValue * yRotateValue) / maxMultiplier;
 					break;
 				case 3:
 					rotateMultiplier = (maxXRotateZ) ? (maxYRotateZ / maxXRotateZ) * ((offset.y + 100) / 200) : 0;
 					xRotateValue = maxXRotateZ * (offset.x / 100);
 					yRotateValue = rotateMultiplier * xRotateValue || maxYRotateZ * (offset.y / 100);
-					rotateValue = xRotateValue + yRotateValue;
+					rotateValueZ = xRotateValue + yRotateValue;
 					break;
 				case 4:
 					xRotateValue = maxXRotateZ * (offset.x / 100);
 					yRotateValue = maxYRotateZ * (offset.y / 100);
-					rotateValue = xRotateValue + yRotateValue;
+					rotateValueZ = xRotateValue + yRotateValue;
 					break;
+				default: break;
 			}
 		}
-
+		
+		// Calculate rotateValueX
+		let rotateValueX;
+		// If maxXRotateX and maxYRotateX are 0 then don't rotate. duh.
+		if (maxXRotateX === 0 && maxYRotateX === 0) rotateValueX = 0;
+		else rotateValueX = -maxXRotateX * (offset.y / 100);		
+		
+		// Calculate rotateValueX
+		let rotateValueY;
+		// If maxXRotateX and maxYRotateX are 0 then don't rotate. duh.
+		if (maxXRotateY === 0 && maxYRotateY === 0) rotateValueY = 0;
+		else rotateValueY = -maxXRotateY * (offset.x / 100);
+		
 		// Concatenate transform value(s) and apply it to transformCSS
 		const perpectiveCSS = "perspective(300px)";
 		const translateCSS = `translate(calc(${xOffsetValue + xOffsetUnit} + ${initialTranslateX}), calc(${yOffsetValue + yOffsetUnit} + ${initialTranslateY}))`;
-		const rotateZCSS = `rotateZ(calc(${rotateValue}deg + ${initialRotate}))`;
-		const scaleCSS = `scale(${scale})`
-		const transformCSS = `${perpectiveCSS} ${translateCSS} ${scaleCSS} ${rotateZCSS}`;
+		const rotateXCSS = `rotateX(calc(${rotateValueX}deg + ${initialRotateX}))`;
+		const rotateYCSS = `rotateY(calc(${rotateValueY}deg + ${initialRotateY}))`;
+		const rotateZCSS = `rotateZ(calc(${rotateValueZ}deg + ${initialRotateZ}))`;		
+		const scaleCSS = `scale(${scale})`;
+		const transformCSS = `${perpectiveCSS} ${translateCSS} ${scaleCSS} ${rotateZCSS} ${rotateXCSS} ${rotateYCSS}`;
 		// console.log(transformCSS);
 		this.transformTarget.style.webkitTransform = transformCSS;
 		this.transformTarget.style.MozTransform = transformCSS;
@@ -276,3 +306,4 @@ class PBTransform {
 		this.transformTarget.style.transform = 'perspective(300px)';
 	};
 }
+
