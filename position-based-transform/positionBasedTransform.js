@@ -311,7 +311,7 @@ class PBTransform {
 		else rotateYValue = -maxTiltX * (offset.x / 100);
 
 		// Concatenate transform value(s) and built transformCSS from them
-		const perpectiveCSS = "perspective(300px)";
+		const perpectiveCSS = "perspective(1000px)";
 		const translateCSS = (translateXValue || translateYValue) ? `translate(calc(${translateXValue + translateXUnit} + ${initialTranslateX}), calc(${translateYValue + translateYUnit} + ${initialTranslateY}))` : '';
 		const rotateXCSS = (rotateXValue) ? `rotateX(calc(${rotateXValue}deg + ${initialRotateX}))` : '';
 		const rotateYCSS = (rotateYValue) ? `rotateY(calc(${rotateYValue}deg + ${initialRotateY}))` : '';
@@ -330,7 +330,6 @@ class PBTransform {
 
 	// Function to reset position of transform target
 	resetPosition() {
-		this.transformTarget.style.transform = (options.maxTiltX || options.maxTiltY) ? 'perspective(300px)' : '';		
+		this.transformTarget.style.transform = (options.maxTiltX || options.maxTiltY) ? 'perspective(1000px)' : '';		
 	};
 };
-
