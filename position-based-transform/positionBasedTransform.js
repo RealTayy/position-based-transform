@@ -8,7 +8,7 @@ function pBTransform(target, options) {
 		};
 	} catch (e) {
 		// Don't error and exit out of function yet if not jQuery Object
-	}
+	};
 
 	// Check if target if Native DOM element and return PBTransform Instance
 	// If targeted by getElementById()
@@ -100,7 +100,7 @@ class PBTransform {
 				if (options.resetOnMouseLeave && this.hasMoved) {
 					this.hasMoved = false;
 					this.resetPosition();
-				}
+				};
 			};
 		});
 	};
@@ -124,7 +124,7 @@ class PBTransform {
 					if (options.resetOnMouseLeave && this.hasMoved) {
 						this.hasMoved = false;
 						this.resetPosition();
-					}
+					};
 				};
 			});
 		}
@@ -249,14 +249,14 @@ class PBTransform {
 			maxTranslateXValue = parseFloat(/^([\d.]+)(\D+)$/.exec(maxTranslateX)[1]);
 			translateXValue = maxTranslateXValue * (offset.x / 100);
 			translateXUnit = /^([\d.]+)(\D+)$/.exec(maxTranslateX)[2];
-		}
+		};
 		if (!maxTranslateY) translateYValue = 0, translateYUnit = "px";
 		else {
 			// Break maxTranslateY into unit and value
 			maxTranslateYValue = parseFloat(/^([\d.]+)(\D+)$/.exec(maxTranslateY)[1]);
 			translateYValue = maxTranslateYValue * (offset.y / 100);
 			translateYUnit = /^([\d.]+)(\D+)$/.exec(maxTranslateY)[2];
-		}
+		};
 
 		// Calculate rotateZValue
 		let rotateZValue;
@@ -295,8 +295,8 @@ class PBTransform {
 					rotateZValue = rotateValueX + rotateValueY;
 					break;
 				default: break;
-			}
-		}
+			};
+		};
 
 		// Calculate rotateValueX
 		let rotateXValue;
