@@ -60,7 +60,7 @@ class PBTransform {
 				translateX: "0px",
 				translateY: "0px",
 			},
-			duration: "700ms",
+			duration: "500ms",
 			easing: "cubic-bezier(0.215, 0.61, 0.355, 1)", //aka easeOutCubic
 			resetOnMouseLeave: true,
 		};
@@ -110,12 +110,6 @@ class PBTransform {
 		}
 		// else track using eventlistener on hoverTarget
 		else {
-			// if resetOnMouseLeave is true then add eventListener to reset on mouse leave
-			if (options.resetOnMouseLeave) {
-				this.hoverTarget.addEventListener('mouseleave', () => {
-					this.resetPosition();
-				});
-			};
 			// if ignoreChildren was disable then only transform when hovering over parent but not it's children.
 			if (!options.ignoreChildren) {
 				return this.hoverTarget.addEventListener('mousemove', (e) => {
@@ -126,17 +120,31 @@ class PBTransform {
 						const offset = this.getOffset(mouseX, mouseY);
 						this.transform(offset);
 					};
+					// if resetOnMouseLeave is true then add eventListener to reset on mouse leave
+					if (options.resetOnMouseLeave) {
+						this.hoverTarget.addEventListener('mouseleave', () => {
+							this.resetPosition();
+						});
+					};
+				});
+			}
+			// else track mouse only when hovering over parent ignoring children but not other elements
+			else {
+				return this.hoverTarget.addEventListener('mousemove', (e) => {
+					if (!this.getCanUpdate()) return;
+					const mouseX = e.pageX;
+					const mouseY = e.pageY;
+					// If hovering over hoverTarget then move it
+					if (this.isHovering(mouseX, mouseY)) {
+						const offset = this.getOffset(mouseX, mouseY);
+						this.transform(offset);
+					}
+					// Else reset position if enabled
+					else {
+						if (options.resetOnMouseLeave) this.resetPosition();
+					};
 				});
 			};
-			// else track mouse only when hovering over parent ignoring children but not other elements
-			return this.hoverTarget.addEventListener('mousemove', (e) => {
-				if (!this.getCanUpdate()) return;
-
-				const mouseX = e.pageX;
-				const mouseY = e.pageY;
-				const offset = this.getOffset(mouseX, mouseY);
-				this.transform(offset);
-			});
 		};
 	};
 
@@ -195,12 +203,10 @@ class PBTransform {
 		// Options
 		const options = this.options;
 		const maxXOffset = options.maxXOffset;
-		const maxYOffset = options.maxYOffset;		
+		const maxYOffset = options.maxYOffset;
 		const maxXRotateZ = options.maxXRotateZ;
 		const maxYRotateZ = options.maxYRotateZ;
 		const maxXRotateX = options.maxXRotateX;
-		const maxYRotateX = options.maxYRotateX;
-		const maxXRotateY = options.maxXRotateY;
 		const maxYRotateY = options.maxYRotateY;
 		const rotateStyle = options.rotateStyle;
 		const duration = options.duration;
@@ -217,11 +223,11 @@ class PBTransform {
 		let maxXOffsetValue, xOffsetValue, xOffsetUnit, maxYOffsetValue, yOffsetValue, yOffsetUnit;
 		// If maxXOffset is 0px then don't translate. duh.
 		if (maxXOffset === "0px") xOffsetValue = 0, xOffsetUnit = "px";
-		else {			
+		else {
 			// Break maxXOffset into unit and value
 			maxXOffsetValue = parseFloat(/^([\d.]+)(\D+)$/.exec(maxXOffset)[1]);
 			xOffsetValue = maxXOffsetValue * (offset.x / 100);
-			xOffsetUnit = /^([\d.]+)(\D+)$/.exec(maxXOffset)[2];		
+			xOffsetUnit = /^([\d.]+)(\D+)$/.exec(maxXOffset)[2];
 		}
 		if (maxYOffset === "0px") yOffsetValue = 0, yOffsetUnit = "px";
 		else {
@@ -230,7 +236,7 @@ class PBTransform {
 			yOffsetValue = maxYOffsetValue * (offset.y / 100);
 			yOffsetUnit = /^([\d.]+)(\D+)$/.exec(maxYOffset)[2];
 		}
-		
+
 		// Calculate rotateValueZ
 		let rotateValueZ;
 		// If maxXRotateZ and maxYRotateZ are 0 then don't rotate. duh.
@@ -270,25 +276,25 @@ class PBTransform {
 				default: break;
 			}
 		}
-		
+
 		// Calculate rotateValueX
 		let rotateValueX;
 		// If maxXRotateX and maxYRotateX are 0 then don't rotate. duh.
-		if (maxXRotateX === 0 && maxYRotateX === 0) rotateValueX = 0;
-		else rotateValueX = -maxXRotateX * (offset.y / 100);		
-		
-		// Calculate rotateValueX
+		if (maxXRotateX === 0) rotateValueX = 0;
+		else rotateValueX = maxXRotateX * (offset.y / 100);
+
+		// Calculate rotateValueY
 		let rotateValueY;
 		// If maxXRotateX and maxYRotateX are 0 then don't rotate. duh.
-		if (maxXRotateY === 0 && maxYRotateY === 0) rotateValueY = 0;
-		else rotateValueY = -maxXRotateY * (offset.x / 100);
-		
+		if (maxYRotateY === 0) rotateValueY = 0;
+		else rotateValueY = -maxYRotateY * (offset.x / 100);
+
 		// Concatenate transform value(s) and apply it to transformCSS
 		const perpectiveCSS = "perspective(300px)";
 		const translateCSS = `translate(calc(${xOffsetValue + xOffsetUnit} + ${initialTranslateX}), calc(${yOffsetValue + yOffsetUnit} + ${initialTranslateY}))`;
 		const rotateXCSS = `rotateX(calc(${rotateValueX}deg + ${initialRotateX}))`;
 		const rotateYCSS = `rotateY(calc(${rotateValueY}deg + ${initialRotateY}))`;
-		const rotateZCSS = `rotateZ(calc(${rotateValueZ}deg + ${initialRotateZ}))`;		
+		const rotateZCSS = `rotateZ(calc(${rotateValueZ}deg + ${initialRotateZ}))`;
 		const scaleCSS = `scale(${scale})`;
 		const transformCSS = `${perpectiveCSS} ${translateCSS} ${scaleCSS} ${rotateZCSS} ${rotateXCSS} ${rotateYCSS}`;
 		// console.log(transformCSS);
@@ -305,5 +311,5 @@ class PBTransform {
 	resetPosition() {
 		this.transformTarget.style.transform = 'perspective(300px)';
 	};
-}
+};
 

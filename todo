@@ -1,2 +1,5 @@
-- Incorporate jQuery targeting for initialization
-- Do I need to calc the hypo? Probably not
+v1.0.0b goals:
+- Add reverseTranslateX and reverseTranslateY options.
+- Add tiltX/tiltY/reverseTiltX/reverseTiltY options.
+- Start Documentation.
+- change variables name offset to translate.
