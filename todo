@@ -2,4 +2,13 @@ v1.0.0b goals:
 - Add reverseTranslateX and reverseTranslateY options.
 - Add tiltX/tiltY/reverseTiltX/reverseTiltY options.
 - Start Documentation.
-- change variables name offset to translate.
+X change variables name offset to translate.
+
+Patch notes:
+- `ignoreChildren` and `ignoreOthers` has been removed until due to a bug with specific cases (more details in known bugs below). All initialzation will default to the global event listener until this bug has been fixed.
+
+FIXED:
+- Bug where hovering over hoverTarget's children (that have been translated) would allow the mousemove to extend past hoverTarget's box.
+
+KNOWN BUGS:
+- #1 Enabling ignoreChildren causes "mouseleave" to not be properly detected if hoverTarget's children extend past the hoverTarget's box.

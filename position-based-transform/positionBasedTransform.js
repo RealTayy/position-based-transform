@@ -43,8 +43,8 @@ class PBTransform {
 			ignoreOthers: false,
 			ignoreChildren: true,
 			updateRate: 40,
-			maxXOffset: "0px",
-			maxYOffset: "0px",
+			maxTranslateX: "0px",
+			maxTranslateY: "0px",
 			maxXRotateX: 0,
 			maxYRotateX: 0,
 			maxXRotateY: 0,
@@ -60,7 +60,7 @@ class PBTransform {
 				translateX: "0px",
 				translateY: "0px",
 			},
-			duration: "500ms",
+			duration: "200ms",
 			easing: "cubic-bezier(0.215, 0.61, 0.355, 1)", //aka easeOutCubic
 			resetOnMouseLeave: true,
 		};
@@ -86,6 +86,28 @@ class PBTransform {
 	};
 
 	init() {
+		const options = this.options;
+		return document.addEventListener('mousemove', (e) => {
+			if (!this.getCanUpdate()) return;
+			const mouseX = e.pageX;
+			const mouseY = e.pageY;
+			// If hovering over hoverTarget then transform!
+			if (this.isHovering(mouseX, mouseY)) {
+				const offset = this.getOffset(mouseX, mouseY);
+				this.hasMoved = true;
+				this.transform(offset);
+			}
+			// Else check if transform target has moved and if it did then reset position
+			else {
+				if (options.resetOnMouseLeave && this.hasMoved) {
+					this.hasMoved = false;
+					this.resetPosition();
+				}
+			};
+		});
+	};
+	
+	initBugged() {
 		const options = this.options;
 		// if ignoreOther options is true then always track mouse through all elements
 		if (options.ignoreOthers) {
@@ -128,6 +150,7 @@ class PBTransform {
 					};
 				});
 			}
+			// TODO: Please refer to KNOWN BUGS #1
 			// else track mouse only when hovering over parent ignoring children but not other elements
 			else {
 				return this.hoverTarget.addEventListener('mousemove', (e) => {
@@ -202,8 +225,8 @@ class PBTransform {
 	transform(offset) {
 		// Options
 		const options = this.options;
-		const maxXOffset = options.maxXOffset;
-		const maxYOffset = options.maxYOffset;
+		const maxTranslateX = options.maxTranslateX;
+		const maxTranslateY = options.maxTranslateY;
 		const maxXRotateZ = options.maxXRotateZ;
 		const maxYRotateZ = options.maxYRotateZ;
 		const maxXRotateX = options.maxXRotateX;
@@ -220,21 +243,21 @@ class PBTransform {
 		const scale = options.scale;
 
 		// Calculate translateCSS
-		let maxXOffsetValue, xOffsetValue, xOffsetUnit, maxYOffsetValue, yOffsetValue, yOffsetUnit;
-		// If maxXOffset is 0px then don't translate. duh.
-		if (maxXOffset === "0px") xOffsetValue = 0, xOffsetUnit = "px";
+		let maxTranslateXValue, translateXValue, translateXUnit, translateYValue, translateYUnit, maxTranslateYValue;
+		// If maxTranslateX is 0px then don't translate. duh.
+		if (maxTranslateX === "0px") translateXValue = 0, translateXUnit = "px";
 		else {
-			// Break maxXOffset into unit and value
-			maxXOffsetValue = parseFloat(/^([\d.]+)(\D+)$/.exec(maxXOffset)[1]);
-			xOffsetValue = maxXOffsetValue * (offset.x / 100);
-			xOffsetUnit = /^([\d.]+)(\D+)$/.exec(maxXOffset)[2];
+			// Break maxTranslateX into unit and value
+			maxTranslateXValue = parseFloat(/^([\d.]+)(\D+)$/.exec(maxTranslateX)[1]);
+			translateXValue = maxTranslateXValue * (offset.x / 100);
+			translateXUnit = /^([\d.]+)(\D+)$/.exec(maxTranslateX)[2];
 		}
-		if (maxYOffset === "0px") yOffsetValue = 0, yOffsetUnit = "px";
+		if (maxTranslateY === "0px") translateYValue = 0, translateYUnit = "px";
 		else {
-			// Break maxYOffset into unit and value
-			maxYOffsetValue = parseFloat(/^([\d.]+)(\D+)$/.exec(maxYOffset)[1]);
-			yOffsetValue = maxYOffsetValue * (offset.y / 100);
-			yOffsetUnit = /^([\d.]+)(\D+)$/.exec(maxYOffset)[2];
+			// Break maxTranslateY into unit and value
+			maxTranslateYValue = parseFloat(/^([\d.]+)(\D+)$/.exec(maxTranslateY)[1]);
+			translateYValue = maxTranslateYValue * (offset.y / 100);
+			translateYUnit = /^([\d.]+)(\D+)$/.exec(maxTranslateY)[2];
 		}
 
 		// Calculate rotateValueZ
@@ -291,7 +314,7 @@ class PBTransform {
 
 		// Concatenate transform value(s) and apply it to transformCSS
 		const perpectiveCSS = "perspective(300px)";
-		const translateCSS = `translate(calc(${xOffsetValue + xOffsetUnit} + ${initialTranslateX}), calc(${yOffsetValue + yOffsetUnit} + ${initialTranslateY}))`;
+		const translateCSS = `translate(calc(${translateXValue + translateXUnit} + ${initialTranslateX}), calc(${translateYValue + translateYUnit} + ${initialTranslateY}))`;
 		const rotateXCSS = `rotateX(calc(${rotateValueX}deg + ${initialRotateX}))`;
 		const rotateYCSS = `rotateY(calc(${rotateValueY}deg + ${initialRotateY}))`;
 		const rotateZCSS = `rotateZ(calc(${rotateValueZ}deg + ${initialRotateZ}))`;
