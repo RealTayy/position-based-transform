@@ -1,11 +1,12 @@
 v1.0.0b goals:
-- Add reverseTranslateX and reverseTranslateY options.
-- Add tiltX/tiltY/reverseTiltX/reverseTiltY options.
+- Add reverse options.
 - Start Documentation.
-X change variables name offset to translate.
 
 Patch notes:
+- Add tiltX/tiltY options.
 - `ignoreChildren` and `ignoreOthers` has been removed until due to a bug with specific cases (more details in known bugs below). All initialzation will default to the global event listener until this bug has been fixed.
+- Many variable names have been changed to make more sense.
+- Added option to define both X and Y axis transforms options through single option (ex: `maxTiltX` and `maxTiltY` can be defined though just `maxTilt`);
 
 FIXED:
 - Bug where hovering over hoverTarget's children (that have been translated) would allow the mousemove to extend past hoverTarget's box.
