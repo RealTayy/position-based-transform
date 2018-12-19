@@ -1,2 +1,16 @@
-- Incorporate jQuery targeting for initialization
-- Do I need to calc the hypo? Probably not
+v1.0.0b goals:
+- Add reverse options.
+- Start Documentation.
+
+Patch notes:
+- Add tiltX/tiltY options.
+- `ignoreChildren` and `ignoreOthers` has been removed until due to a bug with specific cases (more details in known bugs below). All initialzation will default to the global event listener until this bug has been fixed.
+- Added option to define both X and Y axis transforms options through single option (ex: `maxTiltX` and `maxTiltY` can be defined though just `maxTilt`);
+- Many variable names have been changed to make more sense.
+- No longer adds unnecessary transform options if it wasn't defined in options.
+
+FIXED:
+- Bug where hovering over hoverTarget's children (that have been translated) would allow the mousemove to extend past hoverTarget's box.
+
+KNOWN BUGS:
+- #1 Enabling ignoreChildren causes "mouseleave" to not be properly detected if hoverTarget's children extend past the hoverTarget's box.
