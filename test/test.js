@@ -14,14 +14,13 @@ const overflowHidden = document.getElementById('overflow-hidden');
 const overflowImgBox = document.getElementById('overflow-img-box');
 
 const options = {
-	maxTranslate: "50px",
-	maxTranslateY: "5%",
-	maxTiltY: 5,
-	maxTiltX: 5,
-	maxXRotateZ: 2.5,
-	maxYRotateZ: 2.5,
-	maxRotate: 5,
-	scale: 1.1
+	// translate: "50px",
+	translateY: "5%",
+	// tilt: 15,
+	// tiltX: 5,
+	// rotate: 5,
+	// rotateX: 12.5,	
+	// scale: 1.1
 }
 
 const options2 = {

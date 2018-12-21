@@ -43,12 +43,12 @@ class PBTransform {
 			ignoreOthers: false,
 			ignoreChildren: true,
 			updateRate: 40,
-			maxTranslateX: options.maxTranslate, // Just FYI these properties take a string like "0px"
-			maxTranslateY: options.maxTranslate, // Just FYI these properties take a string like "0px"
-			maxTiltX: options.maxTilt,
-			maxTiltY: options.maxTilt,
-			maxRotateX: options.maxRotate / 2,
-			maxRotateY: options.maxRotate / 2,
+			translateX: options.translate, // Just FYI these properties take a string like "0px"
+			translateY: options.translate, // Just FYI these properties take a string like "0px"
+			tiltX: options.tilt,
+			tiltY: options.tilt,
+			rotateX: options.rotate / 2,
+			rotateY: options.rotate / 2,
 			rotateStyle: 1,
 			scale: undefined,
 			initialTransform: {
@@ -223,12 +223,12 @@ class PBTransform {
 	transform(offset) {
 		// Options
 		const options = this.options;
-		const maxTranslateX = options.maxTranslateX;
-		const maxTranslateY = options.maxTranslateY;
-		const maxRotateX = options.maxRotateX;
-		const maxRotateY = options.maxRotateY;
-		const maxTiltY = options.maxTiltY;
-		const maxTiltX = options.maxTiltX;
+		const translateX = options.translateX;
+		const translateY = options.translateY;
+		const rotateX = options.rotateX;
+		const rotateY = options.rotateY;
+		const tiltY = options.tiltY;
+		const tiltX = options.tiltX;
 		const rotateStyle = options.rotateStyle;
 		const duration = options.duration;
 		const easing = options.easing;
@@ -243,55 +243,55 @@ class PBTransform {
 		// Calculate translateCSS
 		let maxTranslateXValue, translateXValue, translateXUnit, translateYValue, translateYUnit, maxTranslateYValue;
 		// If maxTranslateX/maxTranslateY are 0 then don't translate. duh.		
-		if (!maxTranslateX) translateXValue = 0, translateXUnit = "px";
+		if (!translateX) translateXValue = 0, translateXUnit = "px";
 		else {
 			// Break maxTranslateX into unit and value			
-			maxTranslateXValue = parseFloat(/^([\d.]+)(\D+)$/.exec(maxTranslateX)[1]);
+			maxTranslateXValue = parseFloat(/^([\d.]+)(\D+)$/.exec(translateX)[1]);
 			translateXValue = maxTranslateXValue * (offset.x / 100);
-			translateXUnit = /^([\d.]+)(\D+)$/.exec(maxTranslateX)[2];
+			translateXUnit = /^([\d.]+)(\D+)$/.exec(translateX)[2];
 		};
-		if (!maxTranslateY) translateYValue = 0, translateYUnit = "px";
+		if (!translateY) translateYValue = 0, translateYUnit = "px";
 		else {
 			// Break maxTranslateY into unit and value
-			maxTranslateYValue = parseFloat(/^([\d.]+)(\D+)$/.exec(maxTranslateY)[1]);
+			maxTranslateYValue = parseFloat(/^([\d.]+)(\D+)$/.exec(translateY)[1]);
 			translateYValue = maxTranslateYValue * (offset.y / 100);
-			translateYUnit = /^([\d.]+)(\D+)$/.exec(maxTranslateY)[2];
+			translateYUnit = /^([\d.]+)(\D+)$/.exec(translateY)[2];
 		};
 
 		// Calculate rotateZValue
 		let rotateZValue;
-		// If maxRotateX and maxRotateY are 0 then don't rotate. duh.
-		if (maxRotateX === 0 && maxRotateY === 0) rotateZValue = 0;
+		// If rotateX and rotateY are 0 then don't rotate. duh.
+		if (rotateX === 0 && rotateY === 0) rotateZValue = 0;
 		else {
 			let rotateMultiplier, rotateValueX, rotateValueY, totalRotate, multiplierX, multiplierY, maxMultiplier;
 			switch (rotateStyle) {
 				case 1:
-					totalRotate = maxRotateX + maxRotateY;
-					multiplierX = (maxRotateX / totalRotate) * 200;
-					multiplierY = (maxRotateY / totalRotate) * 200;
+					totalRotate = rotateX + rotateY;
+					multiplierX = (rotateX / totalRotate) * 200;
+					multiplierY = (rotateY / totalRotate) * 200;
 					maxMultiplier = multiplierX * multiplierY || multiplierX || multiplierY;
 					rotateValueX = (multiplierX * offset.x) / 100 || 1;
 					rotateValueY = (multiplierY * offset.y) / 100 || 1;
 					rotateZValue = totalRotate * (rotateValueX * rotateValueY) / maxMultiplier;
 					break;
 				case 2:
-					totalRotate = maxRotateX + maxRotateY;
-					multiplierX = (maxRotateX / totalRotate) * 200;
-					multiplierY = (maxRotateY / totalRotate) * 200;
+					totalRotate = rotateX + rotateY;
+					multiplierX = (rotateX / totalRotate) * 200;
+					multiplierY = (rotateY / totalRotate) * 200;
 					maxMultiplier = multiplierX * multiplierY || multiplierX || multiplierY;;
 					rotateValueX = (multiplierX * offset.x) / 100 || 1;
 					rotateValueY = (multiplierY * offset.y) / 100 || 1;
 					rotateZValue = -totalRotate * (rotateValueX * rotateValueY) / maxMultiplier;
 					break;
 				case 3:
-					rotateMultiplier = (maxRotateX) ? (maxRotateY / maxRotateX) * ((offset.y + 100) / 200) : 0;
-					rotateValueX = maxRotateX * (offset.x / 100);
-					rotateValueY = rotateMultiplier * rotateValueX || maxRotateY * (offset.y / 100);
+					rotateMultiplier = (rotateX) ? (rotateY / rotateX) * ((offset.y + 100) / 200) : 0;
+					rotateValueX = rotateX * (offset.x / 100);
+					rotateValueY = rotateMultiplier * rotateValueX || rotateY * (offset.y / 100);
 					rotateZValue = rotateValueX + rotateValueY;
 					break;
 				case 4:
-					rotateValueX = maxRotateX * (offset.x / 100);
-					rotateValueY = maxRotateY * (offset.y / 100);
+					rotateValueX = rotateX * (offset.x / 100);
+					rotateValueY = rotateY * (offset.y / 100);
 					rotateZValue = rotateValueX + rotateValueY;
 					break;
 				default: break;
@@ -300,15 +300,22 @@ class PBTransform {
 
 		// Calculate rotateValueX
 		let rotateXValue;
-		// If maxTiltY and maxYRotateX are 0 then don't rotate. duh.
-		if (maxTiltY === 0) rotateXValue = 0;
-		else rotateXValue = maxTiltY * (offset.y / 100);
+		// If tiltY and maxYRotateX are 0 then don't rotate. duh.
+		if (tiltY === 0) rotateXValue = 0;
+		else rotateXValue = tiltY * (offset.y / 100);
 
 		// Calculate rotateValueY
 		let rotateYValue;
-		// If maxTiltY and maxYRotateX are 0 then don't rotate. duh.
-		if (maxTiltX === 0) rotateYValue = 0;
-		else rotateYValue = -maxTiltX * (offset.x / 100);
+		// If tiltY and maxYRotateX are 0 then don't rotate. duh.
+		if (tiltX === 0) rotateYValue = 0;
+		else rotateYValue = -tiltX * (offset.x / 100);
+
+		// If any reverse option were passed then reverse it.
+		if (true) translateXValue *= -1;
+		if (true) translateYValue *= -1;
+		if (true) rotateXValue *= -1;
+		if (true) rotateYValue *= -1;
+		if (true) rotateZValue *= -1;
 
 		// Concatenate transform value(s) and built transformCSS from them
 		const perpectiveCSS = "perspective(1000px)";
@@ -330,6 +337,6 @@ class PBTransform {
 
 	// Function to reset position of transform target
 	resetPosition() {
-		this.transformTarget.style.transform = (options.maxTiltX || options.maxTiltY) ? 'perspective(1000px)' : '';		
+		this.transformTarget.style.transform = (options.tiltX || options.tiltY) ? 'perspective(1000px)' : '';
 	};
 };
