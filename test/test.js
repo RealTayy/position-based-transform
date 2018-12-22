@@ -14,21 +14,17 @@ const overflowHidden = document.getElementById('overflow-hidden');
 const overflowImgBox = document.getElementById('overflow-img-box');
 
 const options = {
-	maxTranslate: "50px",
-	maxTranslateY: "5%",
-	maxTiltY: 5,
-	maxTiltX: 5,
-	maxXRotateZ: 2.5,
-	maxYRotateZ: 2.5,
-	maxRotate: 5,
-	scale: 1.1
+	translate: 50,	
+	// tilt: 25,	
+	rotate: 35,
+	// rotateStyle: 4,	
+	// scale: 1.1
+	// tiltReverse: true,
+	// translateYReverse: true,	
+	rotateStyle: 3,
 }
 
-const options2 = {
-	maxXRotateX: 5,
-	maxYRotateX: 5,
-	maxXRotateY: 5,
-	maxYRotateY: 5,
+const options2 = {	
 }
 
 console.log(pBTransform(layContent, { hoverTarget: layBox, ...options }));
