@@ -45,10 +45,16 @@ class PBTransform {
 			updateRate: 40,
 			translateX: options.translate, // Just FYI these properties take a string like "0px"
 			translateY: options.translate, // Just FYI these properties take a string like "0px"
+			translateXReverse: options.translateReverse,
+			translateYReverse: options.translateReverse,
 			tiltX: options.tilt,
 			tiltY: options.tilt,
-			rotateX: options.rotate / 2,
-			rotateY: options.rotate / 2,
+			tiltXReverse: options.tiltReverse,
+			tiltYReverse: options.tiltReverse,
+			rotateX: options.rotate / 2 || 0,
+			rotateY: options.rotate / 2 || 0,
+			rotateXReverse: options.rotateReverse,
+			rotateYReverse: options.rotateReverse,
 			rotateStyle: 1,
 			scale: undefined,
 			initialTransform: {
@@ -225,45 +231,50 @@ class PBTransform {
 		const options = this.options;
 		const translateX = options.translateX;
 		const translateY = options.translateY;
-		const rotateX = options.rotateX;
-		const rotateY = options.rotateY;
-		const tiltY = options.tiltY;
+		const translateXReverse = options.translateXReverse;
+		const translateYReverse = options.translateYReverse;
 		const tiltX = options.tiltX;
+		const tiltY = options.tiltY;
+		const tiltXReverse = options.tiltXReverse;
+		const tiltYReverse = options.tiltYReverse
+		const rotateX = options.rotateX;
+		const rotateY = options.rotateY;		
 		const rotateStyle = options.rotateStyle;
-		const duration = options.duration;
-		const easing = options.easing;
+		const rotateXReverse = options.rotateXReverse;
+		const rotateYReverse = options.rotateYReverse;
 		const initialTransform = options.initialTransform;
+		const scale = options.scale;		
 		const initialRotateZ = initialTransform.rotateZ;
 		const initialRotateX = initialTransform.rotateX;
 		const initialRotateY = initialTransform.rotateY;
 		const initialTranslateX = initialTransform.translateX;
 		const initialTranslateY = initialTransform.translateY;
-		const scale = options.scale;
+		const duration = options.duration;
+		const easing = options.easing;
 
 		// Calculate translateCSS
 		let maxTranslateXValue, translateXValue, translateXUnit, translateYValue, translateYUnit, maxTranslateYValue;
 		// If maxTranslateX/maxTranslateY are 0 then don't translate. duh.		
-		if (!translateX) translateXValue = 0, translateXUnit = "px";
+		if (!translateX) translateXValue = 0, translateXUnit = "px";		
 		else {
 			// Break maxTranslateX into unit and value			
-			maxTranslateXValue = parseFloat(/^([\d.]+)(\D+)$/.exec(translateX)[1]);
+			maxTranslateXValue = (typeof translateX === "number") ? translateX : parseFloat(/^([\d.]+)(\D+)$/.exec(translateX)[1]);
 			translateXValue = maxTranslateXValue * (offset.x / 100);
-			translateXUnit = /^([\d.]+)(\D+)$/.exec(translateX)[2];
+			translateXUnit = (typeof translateX === "number") ? "px" : /^([\d.]+)(\D+)$/.exec(translateX)[2];
 		};
-		if (!translateY) translateYValue = 0, translateYUnit = "px";
+		if (!translateY) translateYValue = 0, translateYUnit = "px";		
 		else {
 			// Break maxTranslateY into unit and value
-			maxTranslateYValue = parseFloat(/^([\d.]+)(\D+)$/.exec(translateY)[1]);
+			maxTranslateYValue = (typeof translateY === "number") ? translateY : parseFloat(/^([\d.]+)(\D+)$/.exec(translateY)[1]);
 			translateYValue = maxTranslateYValue * (offset.y / 100);
-			translateYUnit = /^([\d.]+)(\D+)$/.exec(translateY)[2];
+			translateYUnit = (typeof translateY === "number") ? "px" : /^([\d.]+)(\D+)$/.exec(translateY)[2];
 		};
 
 		// Calculate rotateZValue
 		let rotateZValue;
-		// If rotateX and rotateY are 0 then don't rotate. duh.
-		if (rotateX === 0 && rotateY === 0) rotateZValue = 0;
-		else {
-			let rotateMultiplier, rotateValueX, rotateValueY, totalRotate, multiplierX, multiplierY, maxMultiplier;
+		// If rotateX and rotateY isn't defined then don't rotate. duh.		
+		if (rotateX || rotateY) {
+			let rotateMultiplier, rotateValueX, rotateValueY, totalRotate, multiplierX, multiplierY, maxMultiplier, offsetX, offsetY;
 			switch (rotateStyle) {
 				case 1:
 					totalRotate = rotateX + rotateY;
@@ -271,27 +282,27 @@ class PBTransform {
 					multiplierY = (rotateY / totalRotate) * 200;
 					maxMultiplier = multiplierX * multiplierY || multiplierX || multiplierY;
 					rotateValueX = (multiplierX * offset.x) / 100 || 1;
-					rotateValueY = (multiplierY * offset.y) / 100 || 1;
+					rotateValueY = (multiplierY * offset.y) / 100 || 1;					
 					rotateZValue = totalRotate * (rotateValueX * rotateValueY) / maxMultiplier;
+					// If any reverse option were passed then reverse it.
+					if (rotateXReverse || rotateYReverse) rotateValueZ *= -1;					
 					break;
 				case 2:
-					totalRotate = rotateX + rotateY;
-					multiplierX = (rotateX / totalRotate) * 200;
-					multiplierY = (rotateY / totalRotate) * 200;
-					maxMultiplier = multiplierX * multiplierY || multiplierX || multiplierY;;
-					rotateValueX = (multiplierX * offset.x) / 100 || 1;
-					rotateValueY = (multiplierY * offset.y) / 100 || 1;
-					rotateZValue = -totalRotate * (rotateValueX * rotateValueY) / maxMultiplier;
-					break;
-				case 3:
-					rotateMultiplier = (rotateX) ? (rotateY / rotateX) * ((offset.y + 100) / 200) : 0;
-					rotateValueX = rotateX * (offset.x / 100);
-					rotateValueY = rotateMultiplier * rotateValueX || rotateY * (offset.y / 100);
+					// If any reverse option were passed then reverse it.
+					offsetY = (rotateYReverse) ? -offset.y : offset.y;
+					offsetX = (rotateXReverse) ? -offset.x : offset.x;
+					rotateMultiplier = (rotateX) ? (rotateY / rotateX) * ((offsetY + 100) / 200) : 0;
+					rotateValueX = rotateX * (offsetX / 100);
+					rotateValueY = rotateMultiplier * rotateValueX || rotateY * (offsetY / 100);					
 					rotateZValue = rotateValueX + rotateValueY;
 					break;
-				case 4:
-					rotateValueX = rotateX * (offset.x / 100);
-					rotateValueY = rotateY * (offset.y / 100);
+				case 3:
+					// If any reverse option were passed then reverse it.
+					offsetY = (rotateYReverse) ? -offset.y : offset.y;
+					offsetX = (rotateXReverse) ? -offset.x : offset.x;
+					rotateValueX = rotateX * (offsetX / 100);
+					rotateValueY = rotateY * (offsetY / 100);
+					// If any reverse option were passed then reverse it.					
 					rotateZValue = rotateValueX + rotateValueY;
 					break;
 				default: break;
@@ -309,13 +320,12 @@ class PBTransform {
 		// If tiltY and maxYRotateX are 0 then don't rotate. duh.
 		if (tiltX === 0) rotateYValue = 0;
 		else rotateYValue = -tiltX * (offset.x / 100);
-
+		
 		// If any reverse option were passed then reverse it.
-		if (true) translateXValue *= -1;
-		if (true) translateYValue *= -1;
-		if (true) rotateXValue *= -1;
-		if (true) rotateYValue *= -1;
-		if (true) rotateZValue *= -1;
+		if (translateXReverse) translateXValue *= -1;
+		if (translateYReverse) translateYValue *= -1;
+		if (tiltYReverse) rotateXValue *= -1;
+		if (tiltXReverse) rotateYValue *= -1;		
 
 		// Concatenate transform value(s) and built transformCSS from them
 		const perpectiveCSS = "perspective(1000px)";
@@ -336,7 +346,7 @@ class PBTransform {
 	};
 
 	// Function to reset position of transform target
-	resetPosition() {
-		this.transformTarget.style.transform = (options.tiltX || options.tiltY) ? 'perspective(1000px)' : '';
+	resetPosition() {		
+		this.transformTarget.style.transform = (this.options.tiltX || this.options.tiltY) ? 'perspective(1000px)' : '';
 	};
 };

@@ -1,11 +1,13 @@
 v1.0.0c goals:
-- Add reverse options.
 - Start Documentation.
 
 Patch notes:
-- Change user friendly variables named
+- Change user friendly variables names.
+- Add reverse options.
+- - Add ability to pass in just a number into translate rather having it be a string everytime
 
 FIXED:
+- Bug where if you are using the tilt option and rapidly hover and unhover(is that a word?) over the hoverTarget the browser would not correctly add/remove the perpective property in time and things go all crazy.
 
 KNOWN BUGS:
-- #1 Enabling ignoreChildren causes "mouseleave" to not be properly detected if hoverTarget's children extend past the hoverTarget's box.
+- #1 Enabling ignoreChildren causes "mouseleave" to not be properly detected if hoverTarget's children extend past the hoverTarget's box. 
