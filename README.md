@@ -1,13 +1,15 @@
 # Position Based Transform
-Dependency free library for CSS transform effects based on mouse position.
+Dependency free library for parallax CSS transform effects based on mouse position.
 
 ## Demos & Documentation
-Demos coming soon.
+[Demo 1]()
+
+[Demo 2]()
 
 Documentation site coming soon. For now refer to the [**Documentation**]() section below.
 
 ## Getting Started
-Currently the only way to use Position **Based** Transform is to manually [download]() and link `positionBasedTransform.min.js` in your HTML
+Currently the only way to use Position Based Transform is to manually [download]() and link `positionBasedTransform.min.js` in your HTML
 ```html
 <body>
 	<!-- Your HTML body stuff goes here --->
@@ -16,10 +18,25 @@ Currently the only way to use Position **Based** Transform is to manually [downl
 </body>
 ```
 
-## How to  use
-### Basic Initialization
+## How to use
+For a basic example head over to this [CodePen]()
+### Basic Initialization/Usage
+Create a DOM element that and make it targetable by giving it a class or id.
+```html
+<div id="pt-target"></div>
+```
 
-### Basic Usage
+Then in your javascript file target the DOM element and create an `options` object. Pass both into `pTransform()`
+```javascript
+const target = document.getElementById("pt-target");
+const options = {
+	// Options go here... for example a translate!
+	translate: 50
+}
+parallaxTransform(target, options);
+```
+
+And that's it! For more in-depth information on customizing your Parallax Transform refer to the [options]() section below.
 
 # Documentation
 ## Initialization
@@ -28,14 +45,14 @@ For a quick demo on intializing, targeting, and setting options head to this [Co
 ### Creating an instance
 All `PBTransform()` instances are created through the `pBTransform()` function which takes two arguments.
 ```javascript
-const target = document.getElementById('pfb-target');
+const target = document.getElementById('pt-target');
 pBTransform(transformTarget, options);
 ```
 
 ### pBTransform(transformTarget, option)
 Creates and returns an instance of `PBTransform()`
 ```javascript
-const target = document.getElementById('pbt-target');
+const target = document.getElementById("pt-target");
 const instance = pBTransform(transformTarget, options);
 ```
 
