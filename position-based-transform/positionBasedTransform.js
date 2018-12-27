@@ -82,7 +82,8 @@ class PBTransform {
 		this.transformTarget = options.transformTarget;
 		this.hoverTarget = options.hoverTarget;
 		this.canUpdate = true;
-		this.hasMoved = false;		
+		this.hasMoved = false;
+		this.disabled = true;
 
 		// Initialize PBT
 		this.init();
@@ -90,7 +91,8 @@ class PBTransform {
 
 	init() {
 		const options = this.options;
-		return document.addEventListener('mousemove', (e) => {			
+		return document.addEventListener('mousemove', (e) => {
+			if (this.disabled) return;
 			if (!this.getCanUpdate()) return;
 			const mouseX = e.pageX;
 			const mouseY = e.pageY;
@@ -348,4 +350,12 @@ class PBTransform {
 	resetPosition() {
 		this.transformTarget.style.transform = (this.options.tiltX || this.options.tiltY) ? 'perspective(1000px)' : '';
 	};
+
+	// Functions to toggle transition effects on/off
+	disable() { this.disabled = true; };
+	enable() { this.disabled = false; };
+	toggle() {
+		if (this.disabled) this.disabled = false;
+		else this.disabled = true
+	}
 };

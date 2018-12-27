@@ -31,4 +31,4 @@ const options = {
 const options2 = {
 }
 
-console.log(pBTransform(layContent, { hoverTarget: layBox, ...options }));
+const instance = pBTransform(layContent, { hoverTarget: layBox, ...options });
