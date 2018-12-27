@@ -83,14 +83,15 @@ class PBTransform {
 		this.hoverTarget = options.hoverTarget;
 		this.canUpdate = true;
 		this.hasMoved = false;
-		this.disabled = true;
+		this.disabled = false;
+		this.enterCB = options.enterCB;
+		this.leaveCB = options.leaveCB;
 
 		// Initialize PBT
 		this.init();
 	};
 
 	init() {
-		const options = this.options;
 		return document.addEventListener('mousemove', (e) => {
 			if (this.disabled) return;
 			if (!this.getCanUpdate()) return;
@@ -98,15 +99,19 @@ class PBTransform {
 			const mouseY = e.pageY;
 			// If hovering over hoverTarget then transform!
 			if (this.isHovering(mouseX, mouseY)) {
-				const offset = this.getOffset(mouseX, mouseY);
+				// Run enterCB if entering hoverTarget from a rested position				
+				if (this.enterCB && this.hasMoved === false) this.enterCB();
 				this.hasMoved = true;
+				const offset = this.getOffset(mouseX, mouseY);
 				this.transform(offset);
 			}
 			// Else check if transform target has moved and if it did then reset position
 			else {
-				if (options.resetOnMouseLeave && this.hasMoved) {
+				if (this.hasMoved) {
 					this.hasMoved = false;
-					this.resetPosition();
+					// Run leaveCB if leaving hoverTarget from a moved position
+					if (this.leaveCB) this.leaveCB();
+					if (this.options.resetOnMouseLeave) this.resetPosition();
 				};
 			};
 		});

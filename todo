@@ -5,11 +5,11 @@ Patch notes:
 
 Addtional Features:
 - Add `disable()`/`enable()`/`toggle()` methods. This allows user to disable/enable all transition effects.
-X Add `enterCB` and `leaveCB` properties for options. Allows user to set a callback function that fire when the mouse enter/leaves the `hoverTarget`.
+- Add `enterCB` and `leaveCB` properties for options. Allows user to set a callback function that fire when the mouse enter/leaves the `hoverTarget`.
 
 FIXED:
 - Bug where if you pass in an `initialTransform` option it doesn't apply the initialTransform if you don't also pass in a relevant regular transform.
 - Bug where `perpective` is added even though a `tilt` option was not passed in.
 
 KNOWN BUGS:
-- #1 Enabling ignoreChildren causes "mouseleave" to not be properly detected if hoverTarget's children extend past the hoverTarget's box. 
+- #1 Enabling ignoreChildren causes "mouseleave" to not be properly detected if hoverTarget's children extend past the hoverTarget's box.

@@ -25,7 +25,9 @@ const options = {
 	// rotateStyle: 3,
 	initialTransform: {
 		rotateZ: "360deg"
-	}
+	},
+	enterCB: () => console.log('entering'),
+	leaveCB: () => console.log('leaving'),
 }
 
 const options2 = {
