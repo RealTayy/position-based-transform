@@ -3,7 +3,6 @@ function pBTransform(target, options) {
 	// Check if target is jQuery object and return PBTransform Instance
 	try {
 		if (target instanceof jQuery) {
-			console.log('its jQuery!');
 			return new PBTransform(target[0], options)
 		};
 	} catch (e) {
@@ -84,28 +83,35 @@ class PBTransform {
 		this.hoverTarget = options.hoverTarget;
 		this.canUpdate = true;
 		this.hasMoved = false;
+		this.disabled = false;
+		this.enterCB = options.enterCB;
+		this.leaveCB = options.leaveCB;
 
 		// Initialize PBT
 		this.init();
 	};
 
 	init() {
-		const options = this.options;
 		return document.addEventListener('mousemove', (e) => {
+			if (this.disabled) return;
 			if (!this.getCanUpdate()) return;
 			const mouseX = e.pageX;
 			const mouseY = e.pageY;
 			// If hovering over hoverTarget then transform!
 			if (this.isHovering(mouseX, mouseY)) {
-				const offset = this.getOffset(mouseX, mouseY);
+				// Run enterCB if entering hoverTarget from a rested position				
+				if (this.enterCB && this.hasMoved === false) this.enterCB();
 				this.hasMoved = true;
+				const offset = this.getOffset(mouseX, mouseY);
 				this.transform(offset);
 			}
 			// Else check if transform target has moved and if it did then reset position
 			else {
-				if (options.resetOnMouseLeave && this.hasMoved) {
+				if (this.hasMoved) {
 					this.hasMoved = false;
-					this.resetPosition();
+					// Run leaveCB if leaving hoverTarget from a moved position
+					if (this.leaveCB) this.leaveCB();
+					if (this.options.resetOnMouseLeave) this.resetPosition();
 				};
 			};
 		});
@@ -238,12 +244,12 @@ class PBTransform {
 		const tiltXReverse = options.tiltXReverse;
 		const tiltYReverse = options.tiltYReverse
 		const rotateX = options.rotateX;
-		const rotateY = options.rotateY;		
+		const rotateY = options.rotateY;
 		const rotateStyle = options.rotateStyle;
 		const rotateXReverse = options.rotateXReverse;
 		const rotateYReverse = options.rotateYReverse;
 		const initialTransform = options.initialTransform;
-		const scale = options.scale;		
+		const scale = options.scale;
 		const initialRotateZ = initialTransform.rotateZ;
 		const initialRotateX = initialTransform.rotateX;
 		const initialRotateY = initialTransform.rotateY;
@@ -255,14 +261,14 @@ class PBTransform {
 		// Calculate translateCSS
 		let maxTranslateXValue, translateXValue, translateXUnit, translateYValue, translateYUnit, maxTranslateYValue;
 		// If maxTranslateX/maxTranslateY are 0 then don't translate. duh.		
-		if (!translateX) translateXValue = 0, translateXUnit = "px";		
+		if (!translateX) translateXValue = 0, translateXUnit = "px";
 		else {
 			// Break maxTranslateX into unit and value			
 			maxTranslateXValue = (typeof translateX === "number") ? translateX : parseFloat(/^([\d.]+)(\D+)$/.exec(translateX)[1]);
 			translateXValue = maxTranslateXValue * (offset.x / 100);
 			translateXUnit = (typeof translateX === "number") ? "px" : /^([\d.]+)(\D+)$/.exec(translateX)[2];
 		};
-		if (!translateY) translateYValue = 0, translateYUnit = "px";		
+		if (!translateY) translateYValue = 0, translateYUnit = "px";
 		else {
 			// Break maxTranslateY into unit and value
 			maxTranslateYValue = (typeof translateY === "number") ? translateY : parseFloat(/^([\d.]+)(\D+)$/.exec(translateY)[1]);
@@ -282,10 +288,10 @@ class PBTransform {
 					multiplierY = (rotateY / totalRotate) * 200;
 					maxMultiplier = multiplierX * multiplierY || multiplierX || multiplierY;
 					rotateValueX = (multiplierX * offset.x) / 100 || 1;
-					rotateValueY = (multiplierY * offset.y) / 100 || 1;					
+					rotateValueY = (multiplierY * offset.y) / 100 || 1;
 					rotateZValue = totalRotate * (rotateValueX * rotateValueY) / maxMultiplier;
 					// If any reverse option were passed then reverse it.
-					if (rotateXReverse || rotateYReverse) rotateValueZ *= -1;					
+					if (rotateXReverse || rotateYReverse) rotateValueZ *= -1;
 					break;
 				case 2:
 					// If any reverse option were passed then reverse it.
@@ -293,7 +299,7 @@ class PBTransform {
 					offsetX = (rotateXReverse) ? -offset.x : offset.x;
 					rotateMultiplier = (rotateX) ? (rotateY / rotateX) * ((offsetY + 100) / 200) : 0;
 					rotateValueX = rotateX * (offsetX / 100);
-					rotateValueY = rotateMultiplier * rotateValueX || rotateY * (offsetY / 100);					
+					rotateValueY = rotateMultiplier * rotateValueX || rotateY * (offsetY / 100);
 					rotateZValue = rotateValueX + rotateValueY;
 					break;
 				case 3:
@@ -320,19 +326,19 @@ class PBTransform {
 		// If tiltY and maxYRotateX are 0 then don't rotate. duh.
 		if (tiltX === 0) rotateYValue = 0;
 		else rotateYValue = -tiltX * (offset.x / 100);
-		
+
 		// If any reverse option were passed then reverse it.
 		if (translateXReverse) translateXValue *= -1;
 		if (translateYReverse) translateYValue *= -1;
 		if (tiltYReverse) rotateXValue *= -1;
-		if (tiltXReverse) rotateYValue *= -1;		
+		if (tiltXReverse) rotateYValue *= -1;
 
-		// Concatenate transform value(s) and built transformCSS from them
-		const perpectiveCSS = "perspective(1000px)";
-		const translateCSS = (translateXValue || translateYValue) ? `translate(calc(${translateXValue + translateXUnit} + ${initialTranslateX}), calc(${translateYValue + translateYUnit} + ${initialTranslateY}))` : '';
-		const rotateXCSS = (rotateXValue) ? `rotateX(calc(${rotateXValue}deg + ${initialRotateX}))` : '';
-		const rotateYCSS = (rotateYValue) ? `rotateY(calc(${rotateYValue}deg + ${initialRotateY}))` : '';
-		const rotateZCSS = (rotateZValue) ? `rotateZ(calc(${rotateZValue}deg + ${initialRotateZ}))` : '';
+		// Concatenate transform value(s) and built transformCSS from them if they exist or they have an initial value set.
+		const perpectiveCSS = (rotateXValue || rotateYValue) ? "perspective(1000px)" : '';
+		const translateCSS = ((translateXValue || translateYValue || initialTranslateX !== "0px" || initialTranslateY !== "0px")) ? `translate(calc(${translateXValue + translateXUnit} + ${initialTranslateX}), calc(${translateYValue + translateYUnit} + ${initialTranslateY}))` : '';
+		const rotateXCSS = (rotateXValue || initialRotateX !== "0deg") ? `rotateX(calc(${rotateXValue || 0}deg + ${initialRotateX}))` : '';
+		const rotateYCSS = (rotateYValue || initialRotateY !== "0deg") ? `rotateY(calc(${rotateYValue || 0}deg + ${initialRotateY}))` : '';
+		const rotateZCSS = (rotateZValue || initialRotateZ !== "0deg") ? `rotateZ(calc(${rotateZValue || 0}deg + ${initialRotateZ}))` : '';
 		const scaleCSS = (scale) ? `scale(${scale})` : '';
 		const transformCSS = `${perpectiveCSS} ${translateCSS} ${scaleCSS} ${rotateZCSS} ${rotateXCSS} ${rotateYCSS}`.trim();
 		// Set transform target's CSS
@@ -346,7 +352,15 @@ class PBTransform {
 	};
 
 	// Function to reset position of transform target
-	resetPosition() {		
+	resetPosition() {
 		this.transformTarget.style.transform = (this.options.tiltX || this.options.tiltY) ? 'perspective(1000px)' : '';
 	};
+
+	// Functions to toggle transition effects on/off
+	disable() { this.disabled = true; };
+	enable() { this.disabled = false; };
+	toggle() {
+		if (this.disabled) this.disabled = false;
+		else this.disabled = true
+	}
 };

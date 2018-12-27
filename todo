@@ -1,13 +1,15 @@
-v1.0.0c goals:
+v1.0.1 goals:
 - Start Documentation.
 
 Patch notes:
-- Change user friendly variables names.
-- Add reverse options.
-- - Add ability to pass in just a number into translate rather having it be a string everytime
+
+Addtional Features:
+- Add `disable()`/`enable()`/`toggle()` methods. This allows user to disable/enable all transition effects.
+- Add `enterCB` and `leaveCB` properties for options. Allows user to set a callback function that fire when the mouse enter/leaves the `hoverTarget`.
 
 FIXED:
-- Bug where if you are using the tilt option and rapidly hover and unhover(is that a word?) over the hoverTarget the browser would not correctly add/remove the perpective property in time and things go all crazy.
+- Bug where if you pass in an `initialTransform` option it doesn't apply the initialTransform if you don't also pass in a relevant regular transform.
+- Bug where `perpective` is added even though a `tilt` option was not passed in.
 
 KNOWN BUGS:
-- #1 Enabling ignoreChildren causes "mouseleave" to not be properly detected if hoverTarget's children extend past the hoverTarget's box. 
+- #1 Enabling ignoreChildren causes "mouseleave" to not be properly detected if hoverTarget's children extend past the hoverTarget's box.
