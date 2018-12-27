@@ -64,13 +64,31 @@ const target = document.getElementById("targetID");
 const target = document.getElementsByClassName("targetClassName")[0];
 ```
 
-While Slice Revealer is dependency free and does not rely on jQuery you can still pass in jQuery objects as targets.
+While Position Based Transform is dependency free and does not rely on jQuery you can still pass in jQuery objects as targets.
 ```javascript
 // This works too!
-const target = $(someJQuerySelector)[0];
+const target = $(someJQuerySelector);
 ```
 
 #### Options (Optional)
+| Name              | Type                      | Example     | Description                                                                                                                                                                                     |
+|-------------------|---------------------------|-------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| hoverTarget       | DOM Element               | [CodePen]() | Sets which DOM Element the event listener will be created on the detect   the mouse position for the animation. If not defined then sets the   transformTarget to be the hoverTarget as well.   |
+| updateRate        | Number (milliseconds)     | [CodePen]() | Sets minimum delay between animations on the transformTarget. Default is   40.                                                                                                                  |
+| translate         | Number (pixels) \| String | [CodePen]() | The maximum amount the transformTarget can be translated. If you  want to affect only one axis then use   `translateX` or `translateY` instead. If passing in a number it defaults to   pixels. |
+| translateReverse  | Boolean                   | [CodePen]() | If true then direction the transformTarget translates is reversed. If you   want ot affect only one axis then use `translateXReverse` or   `translateYReverse`.                                 |
+| tilt              | Number (degrees)          | [CodePen]() | The maximum amount the transformTarget can be tilted (equilavent to   RotateX/RotateY). If you  want to   affect only one axis then use `tiltX` or `tiltY` instead.                             |
+| tiltReverse       | Boolean                   | [CodePen]() | If true then direction the transformTarget tilts is reversed. If you want   to affect only one axis then use `tiltXReverse` or `tiltYReverse`.                                                  |
+| rotate            | Number (degrees)          | [CodePen]() | The maximum amount the transformTarget can be rotated (equilavent to   RotateZ). If you  want to affect only   one axis then use `tiltX` or `tiltY` instead.                                    |
+| rotateReverse     | Boolean                   | [CodePen]() | If true then direction the transformTarget rotates is reversed. If you   want to affect only one axis then use `rotateXReverse` or `rotateYReverse`.                                            |
+| rotateStyle       | Number (1,2, or 3)            | [CodePen]() | Accepts either 1, 2, or 3. Sets a different way the rotatation is   calculated depending on mouse position. Please see example for details.                                                     |
+| scale             | Number (ratio)            | [CodePen]() | Hovering over hoverTarget scales to this value.                                                                                                                                       |
+| initialTransform  | Object                    | [CodePen]() | Sets initial transform properties in case your element already has some   transform properties on it or you want it to start at a different position.                                           |
+| duration          | String                    | [CodePen]() | How many milliseconds/seconds it takes for a transform transition to   complete.                                                                                                                |
+| easing            | String                    | [CodePen]() | Specifies the speed curve of the transition effect. Default is   "cubic-bezier(0.215, 0.61, 0.355, 1)".                                                                                         |
+| resetOnMouseLeave | Boolean                   | [CodePen]() | If true then when mouse leaves hoverTarget then it resets position of   transformTarget.                                                                                                        |
+| enterCB           | Function                  | [CodePen]() | Callback function that fires when mouse enters hoverTarget.                                                                                                                                     |
+| leaveCB           | Function                  | [CodePen]() | Callback function that fires when mouse leaves hoverTarget.                                                                                                                                     |
 
 ## Methods 
 All methods are called on the instance that is created when initializing
@@ -79,11 +97,29 @@ const target = document.getElementById('pbt-target');
 const instance = pBTransform(transformTarget, options);
 ```
 
-### **.disable(boolean)**
+### **.resetPosition()**
 ```javascript
-instance.disable(boolean);
+instance.resetPosition();
 ```
-Calling `.disable()` will prevent any 
+Calling `.resetPosition()` will reset the transformTarget to it's initial position by taking off any transform values.
+
+### **.disable()**
+```javascript
+instance.disable();
+```
+Calling `.disable()` will prevent any transition effect from taking place.
+
+### **.enable()**
+```javascript
+instance.enable();
+```
+Calling `.enable()` will renable any transition effect.
+
+### **.toggle()**
+```javascript
+instance.toggle();
+```
+Calling `.toggle()` will switch between disabled and enabled state.
 
 ## Misc
 ### License
