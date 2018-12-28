@@ -56,6 +56,7 @@ class PBTransform {
 			rotateYReverse: options.rotateReverse,
 			rotateStyle: 1,
 			scale: undefined,
+			perspective: 500,
 			initialTransform: {
 				rotateZ: "0deg",
 				rotateX: "0deg",
@@ -250,6 +251,7 @@ class PBTransform {
 		const rotateYReverse = options.rotateYReverse;
 		const initialTransform = options.initialTransform;
 		const scale = options.scale;
+		const perspective = options.perspective;
 		const initialRotateZ = initialTransform.rotateZ;
 		const initialRotateX = initialTransform.rotateX;
 		const initialRotateY = initialTransform.rotateY;
@@ -334,7 +336,7 @@ class PBTransform {
 		if (tiltXReverse) rotateYValue *= -1;
 
 		// Concatenate transform value(s) and built transformCSS from them if they exist or they have an initial value set.
-		const perpectiveCSS = (rotateXValue || rotateYValue) ? "perspective(1000px)" : '';
+		const perpectiveCSS = (rotateXValue || rotateYValue) ? `perspective(${perspective}px)` : '';
 		const translateCSS = ((translateXValue || translateYValue || initialTranslateX !== "0px" || initialTranslateY !== "0px")) ? `translate(calc(${translateXValue + translateXUnit} + ${initialTranslateX}), calc(${translateYValue + translateYUnit} + ${initialTranslateY}))` : '';
 		const rotateXCSS = (rotateXValue || initialRotateX !== "0deg") ? `rotateX(calc(${rotateXValue || 0}deg + ${initialRotateX}))` : '';
 		const rotateYCSS = (rotateYValue || initialRotateY !== "0deg") ? `rotateY(calc(${rotateYValue || 0}deg + ${initialRotateY}))` : '';
@@ -353,7 +355,7 @@ class PBTransform {
 
 	// Function to reset position of transform target
 	resetPosition() {
-		this.transformTarget.style.transform = (this.options.tiltX || this.options.tiltY) ? 'perspective(1000px)' : '';
+		this.transformTarget.style.transform = (this.options.tiltX || this.options.tiltY) ? `perspective(${this.options.perspective})` : '';
 	};
 
 	// Functions to toggle transition effects on/off
