@@ -111,7 +111,7 @@ class PBTransform {
 				if (this.hasMoved) {
 					this.hasMoved = false;
 					// Run leaveCB if leaving hoverTarget from a moved position
-					if (this.leaveCB) this.leaveCB();
+					if (this.leaveCB) this.leaveCB();					
 					if (this.options.resetOnMouseLeave) this.resetPosition();
 				};
 			};
@@ -354,8 +354,8 @@ class PBTransform {
 	};
 
 	// Function to reset position of transform target
-	resetPosition() {
-		this.transformTarget.style.transform = (this.options.tiltX || this.options.tiltY) ? `perspective(${this.options.perspective})` : '';
+	resetPosition() {							
+		this.transformTarget.style.transform = (this.options.tiltX || this.options.tiltY) ? `perspective(${this.options.perspective}px)` : '';
 	};
 
 	// Functions to toggle transition effects on/off
