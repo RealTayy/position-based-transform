@@ -1,14 +1,15 @@
-v1.0.1 goals:
-- Start Documentation.
+- Everything can be passed in as string or number.
+- Change README default duration whatever.
 
 Patch notes:
+- Change default perpective to 500px
 
 Addtional Features:
 - Perpective option
 x Delay option
 
 FIXED:
--
+- Bug where resetPosition was not properly reseting if you had a `tilt` option.
 
 KNOWN BUGS:
 - #1 Enabling ignoreChildren causes "mouseleave" to not be properly detected if hoverTarget's children extend past the hoverTarget's box.
