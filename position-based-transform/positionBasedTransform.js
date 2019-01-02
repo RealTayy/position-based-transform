@@ -39,8 +39,6 @@ class PBTransform {
 		const defaultOptions = {
 			transformTarget: transformTarget,
 			hoverTarget: transformTarget,
-			ignoreOthers: false,
-			ignoreChildren: true,
 			updateRate: 40,
 			translateX: options.translate, // Just FYI these properties take a string like "0px"
 			translateY: options.translate, // Just FYI these properties take a string like "0px"
@@ -64,7 +62,7 @@ class PBTransform {
 				translateX: "0px",
 				translateY: "0px",
 			},
-			duration: "200ms",
+			duration: 200,
 			easing: "cubic-bezier(0.215, 0.61, 0.355, 1)", //aka easeOutCubic
 			resetOnMouseLeave: true,
 		};
@@ -93,6 +91,10 @@ class PBTransform {
 	};
 
 	init() {
+		// Calculate options
+		const options = this.options;
+		options.duration = (typeof options.duration === 'number') ? `${options.duration}ms` : options.duration;		
+
 		return document.addEventListener('mousemove', (e) => {
 			if (this.disabled) return;
 			if (!this.getCanUpdate()) return;
@@ -111,75 +113,11 @@ class PBTransform {
 				if (this.hasMoved) {
 					this.hasMoved = false;
 					// Run leaveCB if leaving hoverTarget from a moved position
-					if (this.leaveCB) this.leaveCB();					
+					if (this.leaveCB) this.leaveCB();
 					if (this.options.resetOnMouseLeave) this.resetPosition();
 				};
 			};
 		});
-	};
-
-	initBugged() {
-		const options = this.options;
-		// if ignoreOther options is true then always track mouse through all elements
-		if (options.ignoreOthers) {
-			return document.addEventListener('mousemove', (e) => {
-				if (!this.getCanUpdate()) return;
-				const mouseX = e.pageX;
-				const mouseY = e.pageY;
-				// If hovering over hoverTarget then transform!
-				if (this.isHovering(mouseX, mouseY)) {
-					const offset = this.getOffset(mouseX, mouseY);
-					this.hasMoved = true;
-					this.transform(offset);
-				}
-				// Else check if transform target has moved and if it did then reset position
-				else {
-					if (options.resetOnMouseLeave && this.hasMoved) {
-						this.hasMoved = false;
-						this.resetPosition();
-					};
-				};
-			});
-		}
-		// else track using eventlistener on hoverTarget
-		else {
-			// if ignoreChildren was disable then only transform when hovering over parent but not it's children.
-			if (!options.ignoreChildren) {
-				return this.hoverTarget.addEventListener('mousemove', (e) => {
-					if (!this.getCanUpdate()) return;
-					if (e.target === this.hoverTarget) {
-						const mouseX = e.pageX;
-						const mouseY = e.pageY;
-						const offset = this.getOffset(mouseX, mouseY);
-						this.transform(offset);
-					};
-					// if resetOnMouseLeave is true then add eventListener to reset on mouse leave
-					if (options.resetOnMouseLeave) {
-						this.hoverTarget.addEventListener('mouseleave', () => {
-							this.resetPosition();
-						});
-					};
-				});
-			}
-			// TODO: Please refer to KNOWN BUGS #1
-			// else track mouse only when hovering over parent ignoring children but not other elements
-			else {
-				return this.hoverTarget.addEventListener('mousemove', (e) => {
-					if (!this.getCanUpdate()) return;
-					const mouseX = e.pageX;
-					const mouseY = e.pageY;
-					// If hovering over hoverTarget then move it
-					if (this.isHovering(mouseX, mouseY)) {
-						const offset = this.getOffset(mouseX, mouseY);
-						this.transform(offset);
-					}
-					// Else reset position if enabled
-					else {
-						if (options.resetOnMouseLeave) this.resetPosition();
-					};
-				});
-			};
-		};
 	};
 
 	// Helper function to get offset of mouse position relative to hoverTarget's center in percentage
@@ -354,7 +292,7 @@ class PBTransform {
 	};
 
 	// Function to reset position of transform target
-	resetPosition() {							
+	resetPosition() {
 		this.transformTarget.style.transform = (this.options.tiltX || this.options.tiltY) ? `perspective(${this.options.perspective}px)` : '';
 	};
 

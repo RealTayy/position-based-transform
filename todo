@@ -1,12 +1,10 @@
-- Everything can be passed in as string or number.
-- Change README default duration whatever.
-
 Patch notes:
-- Change default perpective to 500px
+- There was on known bug with the initial release with `ignoreChildren` and `ignoreOthers` optoin when intializating. They were not included in the released version but I kept the code in order to maybe fix it later. Now that I think about it there aren't many use cases for those two options so from this version version they have been removed from the javascript completely.
+- Change default perpective to 500px.
 
 Addtional Features:
-- Perpective option
-x Delay option
+- Added perpective option.
+- You can now pass in duration as a string or a number. If it was passed in a number it will treat it as milliseconds.
 
 FIXED:
 - Bug where resetPosition was not properly reseting if you had a `tilt` option.
