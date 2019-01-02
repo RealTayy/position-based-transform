@@ -9,7 +9,7 @@ Demo sites coming soon.
 Documentation site coming soon. For now refer to the [**Documentation**](https://github.com/RealTayy/position-based-transform#documentation) section below.
 
 ## Getting Started
-Currently the only way to use Position Based Transform is to manually [download](https://github.com/RealTayy/position-based-transform/files/2711593/position-based-transform-1.1.0.zip) and link `positionBasedTransform.min.js` in your HTML
+Currently the only way to use Position Based Transform is to manually [download](https://github.com/RealTayy/position-based-transform/files/2720259/position-based-transform-v1.2.0.zip) and link `positionBasedTransform.min.js` in your HTML
 ```html
 <body>
 	<!-- Your HTML body stuff goes here --->
