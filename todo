@@ -1,15 +1,13 @@
-v1.0.1 goals:
-- Start Documentation.
-
 Patch notes:
+- There was on known bug with the initial release with `ignoreChildren` and `ignoreOthers` optoin when intializating. They were not included in the released version but I kept the code in order to maybe fix it later. Now that I think about it there aren't many use cases for those two options so from this version version they have been removed from the javascript completely.
+- Change default perpective to 500px.
 
 Addtional Features:
-- Add `disable()`/`enable()`/`toggle()` methods. This allows user to disable/enable all transition effects.
-- Add `enterCB` and `leaveCB` properties for options. Allows user to set a callback function that fire when the mouse enter/leaves the `hoverTarget`.
+- Added perpective option.
+- You can now pass in duration as a string or a number. If it was passed in a number it will treat it as milliseconds.
 
 FIXED:
-- Bug where if you pass in an `initialTransform` option it doesn't apply the initialTransform if you don't also pass in a relevant regular transform.
-- Bug where `perpective` is added even though a `tilt` option was not passed in.
+- Bug where resetPosition was not properly reseting if you had a `tilt` option.
 
 KNOWN BUGS:
 - #1 Enabling ignoreChildren causes "mouseleave" to not be properly detected if hoverTarget's children extend past the hoverTarget's box.

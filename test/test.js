@@ -14,18 +14,18 @@ const overflowHidden = document.getElementById('overflow-hidden');
 const overflowImgBox = document.getElementById('overflow-img-box');
 
 const options = {
-	translateX: "50px",
+//	translateX: "50px",
 	// translateY: "50px",	
-	// tilt: 25,
+	tilt: 15,
 	// rotate: 35,
 	// rotateStyle: 4,	
 	// scale: 1.1
 	// tiltReverse: true,
 	// translateYReverse: true,	
 	// rotateStyle: 3,
-	initialTransform: {
-		rotateZ: "360deg"
-	},
+//	initialTransform: {
+//		rotateZ: "360deg"
+//	},
 	enterCB: () => console.log('entering'),
 	leaveCB: () => console.log('leaving'),
 }
