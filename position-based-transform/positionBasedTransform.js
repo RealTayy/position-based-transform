@@ -101,14 +101,14 @@ class PBTransform {
 			if (!this.getCanUpdate()) return;
 			const mouseX = e.pageX;
 			const mouseY = e.pageY;
+			const offset = this.getOffset(mouseX, mouseY);
 			// If hovering over hoverTarget then transform!
 			if (this.isHovering(mouseX, mouseY)) {
 				// Run onEnter if entering hoverTarget from a rested position				
-				if (this.onEnter && this.hasMoved === false) this.onEnter();
+				if (this.onEnter && this.hasMoved === false) this.onEnter(offset);
 				// Run onChange callback function
-				if (this.onChange) this.onChange();
+				if (this.onChange) this.onChange(offset);
 				this.hasMoved = true;
-				const offset = this.getOffset(mouseX, mouseY);
 				this.transform(offset);
 			}
 			// Else check if transform target has moved and if it did then reset position
@@ -116,7 +116,7 @@ class PBTransform {
 				if (this.hasMoved) {
 					this.hasMoved = false;
 					// Run onLeave if leaving hoverTarget from a moved position
-					if (this.onLeave) this.onLeave();
+					if (this.onLeave) this.onLeave(offset);
 					if (this.options.resetOnMouseLeave) this.resetPosition();
 				};
 			};
