@@ -234,7 +234,7 @@ class PBTransform {
 					rotateValueY = (multiplierY * offset.y) / 100 || 1;
 					rotateZValue = totalRotate * (rotateValueX * rotateValueY) / maxMultiplier;
 					// If any reverse option were passed then reverse it.
-					if (rotateXReverse || rotateYReverse) rotateValueZ *= -1;
+					if (rotateXReverse || rotateYReverse) rotateZValue *= -1;
 					break;
 				case 2:
 					// If any reverse option were passed then reverse it.
