@@ -1,0 +1,69 @@
+// Media Queries
+$small-bp: "screen and (max-width : 767px)";
+$medium-bp: "screen and (min-width : 768px)";
+$large-bp: "screen and (min-width : 992px)";
+#section-two {
+  background-image: url('./images/card2-1.jpg');
+  background-size: cover;
+  background-position: center;
+  .section-cover {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: #313438;
+    opacity: 1;
+    transition-duration: 100ms;
+  }
+  .card {
+    transition-duration: 200ms;    
+    filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.75));
+    figcaption {
+      transition-duration: 200ms;
+      transform: perspective(500px);
+      transform-style: preserve-3d;
+      position: relative;
+      box-sizing: border-box;      
+      color: #fff;
+      z-index: 5;
+      .box {
+        position: absolute;
+        box-sizing: border-box; 
+        transform: translateZ(80px) scale(.8);
+        height: 100%;
+        width: 100%;
+        z-index: 5;
+        border: 5px #fff solid;
+      }
+      .s2_text {
+        transform: translateZ(160px) scale(.7);
+        filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.95));
+        position: absolute;
+        padding: 50px;
+        bottom: 20px;
+        font-size: 36px;
+        font-weight: 900;
+        letter-spacing: 3px;
+        @media #{$medium-bp} {
+          font-size: 52px;
+        }
+        @media #{$large-bp} {
+          font-size: 64px;
+        }
+        .s2_subtext {
+          font-size: 16px;
+          font-weight: 300;
+          letter-spacing: 4px;
+          @media #{$medium-bp} {
+            font-size: 20px;
+          }
+          @media #{$large-bp} {
+            font-size: 24px;
+          }
+        }
+      }
+    }
+    img {
+      z-index: 3;
+    }
+  }
+}

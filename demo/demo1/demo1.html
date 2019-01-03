@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,8 +9,101 @@
 	<meta name="description" content="A demo of the position based transform library which is a part of Animation Zone. Made by MaiCoding">
 	<meta name="keywords" content="position, based, transform, parallax, animation, css, web development, web design, maicoding, animation zone, position based transform">
 	<meta name="author" content="MaiCoding">
+	<!-- Reset.css -->
+	<link rel="stylesheet" href="./reset.css">
+	<!-- Page CSS -->
+	<link rel="stylesheet" href="./demo1.css">
+	<!-- Font: Julius Sans One -->
+	<!-- font-family: 'Julius Sans One', sans-serif; -->
+	<link href="https://fonts.googleapis.com/css?family=Julius+Sans+One" rel="stylesheet">
+	<!-- Font: Crimson Text -->
+	<!-- font-family: 'Crimson Text', serif; -->
+	<link href="https://fonts.googleapis.com/css?family=Crimson+Text" rel="stylesheet">
+
 </head>
+
 <body>
-	
+	<section id="section-one">
+		<div class="page-header">
+			<h1 class="page-title f-1-1">
+				Position Based <br> Transform
+			</h1>
+			<h3 class="page-subtitle f-1-2">
+				by MaiCoding
+			</h3>
+			<nav class="nav">
+				<div class="nav-bar">
+					<a target="_blank" href="http://maicoding.me" class="nav-link hoverable">
+						<img src="./images/mini-mc.png" alt="MaiCoding logo">
+					</a>
+					<a target="_blank" href="https://github.com/RealTayy/position-based-transform" class="nav-link hoverable">
+						<img src="./images/mini-gh.png" alt="MaiCoding logo">
+					</a>
+					<a target="_blank" href="https://realtayy.github.io/animation-zone/" class="nav-link hoverable">
+						<img src="./images/mini-az.png" alt="MaiCoding logo">
+					</a>
+				</div>
+			</nav>
+		</div>
+		<div class="content">
+			<div class="content-wrapper">
+				<figure id="card1_1" class="card">
+					<img class="card_img" id="c1_1_img" src="./images/card1-1.jpeg" alt="c1_1">
+					<figcaption id="c1_1_content">
+						<div id="c1_1_text" class="s1_text f-1-1">
+							Chicago
+							<div id="c1_1_subtext" class="s1_subtext f-1-2">The Windy City</div>
+						</div>
+					</figcaption>
+					<div id="c1_1_trail_1" class="s1_trail_1 trail"></div>
+					<div id="c1_1_trail_2" class="s1_trail_2 trail"></div>
+					<div id="c1_1_trail_3" class="s1_trail_3 trail"></div>
+				</figure>
+				<figure id="card1_2" class="card">
+					<img class="card_img" id="c1_2_img" src="./images/card1-2.jpeg" alt="c1_2">
+					<figcaption id="c1_2_content">
+						<div id="c1_2_text" class="s1_text f-1-1">
+							New<br>York
+							<div id="c1_2_subtext" class="s1_subtext f-1-2">City of Dreams</div>
+						</div>
+					</figcaption>
+					<div id="c1_2_trail_1" class="s1_trail_1 trail"></div>
+					<div id="c1_2_trail_2" class="s1_trail_2 trail"></div>
+					<div id="c1_2_trail_3" class="s1_trail_3 trail"></div>
+				</figure>
+			</div>
+		</div>
+	</section>
+	<section id="section-two">
+		<div id="s2_cover" class="section-cover"></div>
+		<div class="content">
+			<div class="content-wrapper">
+				<figure id="card2_1" class="card">
+					<img class="card_img" id="c2_1_img" src="./images/card2-1.jpg" alt="c2_1">
+					<figcaption id="c2_1_content">
+						<div class="box"></div>
+						<div id="c2_1_text" class="s2_text f-1-1">
+							Seattle
+							<div id="c2_1_subtext" class="s2_subtext f-1-2">Emerald City</div>
+						</div>
+					</figcaption>
+				</figure>
+				<figure id="card2_2" class="card">
+					<img class="card_img" id="c2_2_img" src="./images/card2-2.jpg" alt="c2_2">
+					<figcaption id="c2_2_content">
+						<div class="box"></div>
+						<div id="c2_2_text" class="s2_text f-1-1">
+							San<br>Diego
+							<div id="c2_2_subtext" class="s2_subtext f-1-2">City in Motion</div>
+						</div>
+					</figcaption>
+				</figure>
+			</div>
+		</div>
+	</section>
+	<script src="../../position-based-transform/positionBasedTransform.min.js"></script>
+	<script src="./javascript/section-1.js"></script>
+	<script src="./javascript/section-2.js"></script>
 </body>
+
 </html>

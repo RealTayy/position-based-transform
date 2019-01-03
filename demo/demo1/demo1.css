@@ -1,0 +1,275 @@
+.f-1-1 {
+  font-family: "Julius Sans One", sans-serif;
+}
+
+.f-1-2 {
+  font-family: "Crimson Text", serif;
+}
+
+#section-one {
+  background-color: #fff;
+}
+#section-one .card .trail {
+  position: absolute;
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+#section-one .card figcaption {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 20px;
+  color: #fff;
+  z-index: 5;
+}
+#section-one .card figcaption .s1_text {
+  position: absolute;
+  bottom: 20px;
+  font-size: 36px;
+  font-weight: 900;
+  letter-spacing: 3px;
+}
+@media screen and (min-width : 768px) {
+  #section-one .card figcaption .s1_text {
+    font-size: 52px;
+  }
+}
+@media screen and (min-width : 992px) {
+  #section-one .card figcaption .s1_text {
+    font-size: 64px;
+  }
+}
+#section-one .card figcaption .s1_text .s1_subtext {
+  font-size: 16px;
+  font-weight: 300;
+  letter-spacing: 3px;
+}
+@media screen and (min-width : 768px) {
+  #section-one .card figcaption .s1_text .s1_subtext {
+    font-size: 20px;
+  }
+}
+@media screen and (min-width : 992px) {
+  #section-one .card figcaption .s1_text .s1_subtext {
+    font-size: 24px;
+  }
+}
+#section-one .card img {
+  z-index: 4;
+}
+#section-one .card .s1_trail_1 {
+  background-color: #484848;
+  z-index: 3;
+}
+#section-one .card .s1_trail_2 {
+  background-color: #ce766b;
+  z-index: 2;
+}
+#section-one .card .s1_trail_3 {
+  background-color: #36a9e1;
+  z-index: 1;
+}
+
+#section-two {
+  background-image: url("./images/card2-1.jpg");
+  background-size: cover;
+  background-position: center;
+}
+#section-two .section-cover {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: #313438;
+  opacity: 1;
+  -webkit-transition-duration: 100ms;
+       -o-transition-duration: 100ms;
+          transition-duration: 100ms;
+}
+#section-two .card {
+  -webkit-transition-duration: 200ms;
+       -o-transition-duration: 200ms;
+          transition-duration: 200ms;
+  -webkit-filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.75));
+          filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.75));
+}
+#section-two .card figcaption {
+  -webkit-transition-duration: 200ms;
+       -o-transition-duration: 200ms;
+          transition-duration: 200ms;
+  -webkit-transform: perspective(500px);
+          transform: perspective(500px);
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+  position: relative;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  color: #fff;
+  z-index: 5;
+}
+#section-two .card figcaption .box {
+  position: absolute;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  -webkit-transform: translateZ(80px) scale(0.8);
+          transform: translateZ(80px) scale(0.8);
+  height: 100%;
+  width: 100%;
+  z-index: 5;
+  border: 5px #fff solid;
+}
+#section-two .card figcaption .s2_text {
+  -webkit-transform: translateZ(160px) scale(0.7);
+          transform: translateZ(160px) scale(0.7);
+  -webkit-filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.95));
+          filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.95));
+  position: absolute;
+  padding: 50px;
+  bottom: 20px;
+  font-size: 36px;
+  font-weight: 900;
+  letter-spacing: 3px;
+}
+@media screen and (min-width : 768px) {
+  #section-two .card figcaption .s2_text {
+    font-size: 52px;
+  }
+}
+@media screen and (min-width : 992px) {
+  #section-two .card figcaption .s2_text {
+    font-size: 64px;
+  }
+}
+#section-two .card figcaption .s2_text .s2_subtext {
+  font-size: 16px;
+  font-weight: 300;
+  letter-spacing: 4px;
+}
+@media screen and (min-width : 768px) {
+  #section-two .card figcaption .s2_text .s2_subtext {
+    font-size: 20px;
+  }
+}
+@media screen and (min-width : 992px) {
+  #section-two .card figcaption .s2_text .s2_subtext {
+    font-size: 24px;
+  }
+}
+#section-two .card img {
+  z-index: 3;
+}
+
+a {
+  -webkit-text-decoration-line: none;
+          text-decoration-line: none;
+}
+
+.hoverable {
+  opacity: 1;
+  -webkit-transition-duration: 0.4s;
+       -o-transition-duration: 0.4s;
+          transition-duration: 0.4s;
+}
+
+.hoverable:hover {
+  opacity: 0.75;
+  -webkit-filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.85));
+          filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.85));
+}
+
+.page-header {
+  padding: 72px 0 0 0;
+  text-align: center;
+  line-height: 2em;
+}
+.page-header .page-title {
+  color: #1f1f1f;
+  font-size: 32px;
+  letter-spacing: 3px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+.page-header .page-subtitle {
+  color: #9c9c9c;
+  font-size: 16px;
+  letter-spacing: 1px;
+}
+.page-header nav {
+  padding-top: 20px;
+}
+.page-header nav .nav-bar {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+.page-header nav .nav-bar .nav-link {
+  display: block;
+  padding: 0 5px;
+  height: 28px;
+}
+.page-header nav .nav-bar .nav-link img {
+  display: block;
+  max-height: 28px;
+}
+
+section {
+  position: relative;
+  width: 100%;
+}
+
+.content-wrapper {
+  padding: 169px 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+.content-wrapper figure.card {
+  position: relative;
+  width: 250px;
+  height: 250px;
+  margin: 10px;
+}
+@media screen and (min-width : 768px) {
+  .content-wrapper figure.card {
+    width: 330px;
+    height: 330px;
+    margin: 10px 20px;
+  }
+}
+@media screen and (min-width : 992px) {
+  .content-wrapper figure.card {
+    width: 400px;
+    height: 400px;
+    margin: 10px 30px;
+  }
+}
+@media screen and (min-width : 1200px) {
+  .content-wrapper figure.card {
+    width: 400px;
+    height: 400px;
+    margin: 10px 60px;
+  }
+}
+.content-wrapper figure.card img {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  min-height: 250px;
+  min-width: 250px;
+}
+.content-wrapper figure.card figcaption {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}

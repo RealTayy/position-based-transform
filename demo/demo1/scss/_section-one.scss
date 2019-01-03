@@ -1,0 +1,60 @@
+// Media Queries
+$small-bp: "screen and (max-width : 767px)";
+$medium-bp: "screen and (min-width : 768px)";
+$large-bp: "screen and (min-width : 992px)";
+#section-one {
+  background-color: #fff;
+  .card {
+    .trail {
+      position: absolute;
+      display: block;
+      height: 100%;
+      width: 100%;
+    }
+    figcaption {
+      box-sizing: border-box;
+      padding: 20px;
+      color: #fff;
+      z-index: 5;
+      .s1_text {
+        position: absolute;
+        bottom: 20px;
+        font-size: 36px;
+        font-weight: 900;
+        letter-spacing: 3px;
+        @media #{$medium-bp} {
+          font-size: 52px;
+        }
+        @media #{$large-bp} {
+          font-size: 64px;
+        }
+        .s1_subtext {
+          font-size: 16px;
+          font-weight: 300;
+          letter-spacing: 3px;
+          @media #{$medium-bp} {
+            font-size: 20px;
+          }
+          @media #{$large-bp} {
+            font-size: 24px;
+          }
+        }
+      }
+    }
+    img {
+      z-index: 4;
+    }
+    .s1_trail_1 {
+      background-color: #484848;
+      z-index: 3;
+    }
+    .s1_trail_2 {
+      background-color: #ce766b;
+      z-index: 2;
+    }
+    .s1_trail_3 {
+      background-color: #36a9e1;
+      z-index: 1;
+    }
+  }
+}
