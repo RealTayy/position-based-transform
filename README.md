@@ -2,7 +2,7 @@
 Dependency free library for CSS transform effects based on mouse position.
 
 ## Demos & Documentation
-Demo sites coming soon.
+[Demo](https://realtayy.github.io/position-based-transform/demo/demo1/demo1.html)
 
 [Options & Targeting Demo](https://codepen.io/maiCoding/pen/ebEzWM)
 
