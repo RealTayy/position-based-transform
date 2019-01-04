@@ -39,7 +39,7 @@ class PBTransform {
 		const defaultOptions = {
 			transformTarget: transformTarget,
 			hoverTarget: transformTarget,
-			updateRate: 40,
+			updateRate: 0,
 			translateX: options.translate, // Just FYI these properties take a string like "0px"
 			translateY: options.translate, // Just FYI these properties take a string like "0px"
 			translateXReverse: options.translateReverse,
