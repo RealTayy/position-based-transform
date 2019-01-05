@@ -1,3 +1,4 @@
 - Fix way offset.h is calculated
 Bug Fix: Passing in a rotateReverse while in rotateStyle:1 bugs out due to misnamed variable.
 - Add will change to CSS
+- Automatically add will-change to transformTargets

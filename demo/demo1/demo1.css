@@ -16,8 +16,7 @@
   width: 100%;
 }
 #section-one .card figcaption {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   padding: 20px;
   color: #fff;
   z-index: 5;
@@ -81,53 +80,40 @@
   width: 100%;
   background-color: #313438;
   opacity: 1;
-  -webkit-transition-duration: 100ms;
-       -o-transition-duration: 100ms;
-          transition-duration: 100ms;
+  transition-duration: 100ms;
 }
 #section-two .card {
-  -webkit-transition-duration: 200ms;
-       -o-transition-duration: 200ms;
-          transition-duration: 200ms;
-  -webkit-filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.75));
-          filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.75));
+  transition-duration: 200ms;
+  filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.75));
 }
 #section-two .card figcaption {
-  -webkit-transition-duration: 200ms;
-       -o-transition-duration: 200ms;
-          transition-duration: 200ms;
-  -webkit-transform: perspective(500px);
-          transform: perspective(500px);
-  -webkit-transform-style: preserve-3d;
-          transform-style: preserve-3d;
+  transition-duration: 200ms;
+  transform: perspective(500px);
+  transform-style: preserve-3d;
   position: relative;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   color: #fff;
   z-index: 5;
 }
 #section-two .card figcaption .box {
   position: absolute;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-  -webkit-transform: translateZ(80px) scale(0.8);
-          transform: translateZ(80px) scale(0.8);
+  box-sizing: border-box;
+  transform: translateZ(80px) scale(0.8);
   height: 100%;
   width: 100%;
   z-index: 5;
   border: 5px #fff solid;
 }
 #section-two .card figcaption .s2_text {
-  -webkit-transform: translateZ(160px) scale(0.7);
-          transform: translateZ(160px) scale(0.7);
-  -webkit-filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.95));
-          filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.95));
+  transform: translateZ(160px) scale(0.7);
+  filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.95));
   position: absolute;
   padding: 50px;
   bottom: 20px;
   font-size: 36px;
   font-weight: 900;
   letter-spacing: 3px;
+  perspective-origin: left bottom;
 }
 @media screen and (min-width : 768px) {
   #section-two .card figcaption .s2_text {
@@ -159,21 +145,17 @@
 }
 
 a {
-  -webkit-text-decoration-line: none;
-          text-decoration-line: none;
+  text-decoration-line: none;
 }
 
 .hoverable {
   opacity: 1;
-  -webkit-transition-duration: 0.4s;
-       -o-transition-duration: 0.4s;
-          transition-duration: 0.4s;
+  transition-duration: 0.4s;
 }
 
 .hoverable:hover {
   opacity: 0.75;
-  -webkit-filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.85));
-          filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.85));
+  filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.85));
 }
 
 .page-header {
@@ -197,12 +179,8 @@ a {
   padding-top: 20px;
 }
 .page-header nav .nav-bar {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  justify-content: center;
 }
 .page-header nav .nav-bar .nav-link {
   display: block;
@@ -221,18 +199,10 @@ section {
 
 .content-wrapper {
   padding: 169px 0;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 .content-wrapper figure.card {
   position: relative;
@@ -273,3 +243,5 @@ section {
   height: 100%;
   width: 100%;
 }
+
+/*# sourceMappingURL=demo1.css.map */

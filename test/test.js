@@ -15,10 +15,9 @@ const overflowImgBox = document.getElementById('overflow-img-box');
 
 const options = {
 //	translateX: "50px",
-	// translateY: "50px",	
-	tilt: 15,
-	// rotate: 35,
-	// rotateStyle: 4,	
+	// translateY: "50px",		
+	rotate: 35,
+	rotateStyle: 2,	
 	// scale: 1.1
 	// tiltReverse: true,
 	// translateYReverse: true,	
