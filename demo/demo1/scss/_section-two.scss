@@ -37,22 +37,30 @@ $large-bp: "screen and (min-width : 992px)";
       .s2_text {
         transform: translateZ(160px) scale(.7);
         filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.95));
-        position: absolute;
-        padding: 50px;
-        bottom: 20px;
+        position: absolute;        
         font-size: 36px;
         font-weight: 900;
-        letter-spacing: 3px;
+        letter-spacing: 5px;
         @media #{$medium-bp} {
           font-size: 52px;
         }
+		&.c2_1 {
+		text-align: right;
+		right: 13%;
+		bottom: 19%;
+		}
+		&.c2_2 {
+		text-align: right;
+		right: 15.5%;
+		bottom: 16%;
+		}
         @media #{$large-bp} {
           font-size: 64px;
         }
         .s2_subtext {
           font-size: 16px;
           font-weight: 300;
-          letter-spacing: 4px;
+          letter-spacing: 2px;
           @media #{$medium-bp} {
             font-size: 20px;
           }

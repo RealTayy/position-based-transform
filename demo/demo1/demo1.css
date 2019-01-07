@@ -4,6 +4,15 @@
 
 .f-1-2 {
   font-family: "Crimson Text", serif;
+  font-style: italic;
+}
+
+.f-2-1 {
+  font-family: "Staatliches", cursive;
+}
+
+.f-2-2 {
+  font-family: "Staatliches", cursive;
 }
 
 #section-one {
@@ -108,17 +117,24 @@
   transform: translateZ(160px) scale(0.7);
   filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.95));
   position: absolute;
-  padding: 50px;
-  bottom: 20px;
   font-size: 36px;
   font-weight: 900;
-  letter-spacing: 3px;
-  perspective-origin: left bottom;
+  letter-spacing: 5px;
 }
 @media screen and (min-width : 768px) {
   #section-two .card figcaption .s2_text {
     font-size: 52px;
   }
+}
+#section-two .card figcaption .s2_text.c2_1 {
+  text-align: right;
+  right: 13%;
+  bottom: 19%;
+}
+#section-two .card figcaption .s2_text.c2_2 {
+  text-align: right;
+  right: 15.5%;
+  bottom: 16%;
 }
 @media screen and (min-width : 992px) {
   #section-two .card figcaption .s2_text {
@@ -128,7 +144,7 @@
 #section-two .card figcaption .s2_text .s2_subtext {
   font-size: 16px;
   font-weight: 300;
-  letter-spacing: 4px;
+  letter-spacing: 2px;
 }
 @media screen and (min-width : 768px) {
   #section-two .card figcaption .s2_text .s2_subtext {

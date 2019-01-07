@@ -22,9 +22,9 @@ const options = {
 	// tiltReverse: true,
 	// translateYReverse: true,	
 	// rotateStyle: 3,
-//	initialTransform: {
-//		rotateZ: "360deg"
-//	},
+	initialTransform: {
+		rotateZ: "360deg"
+	},
 	enterCB: () => console.log('entering'),
 	leaveCB: () => console.log('leaving'),
 }

@@ -17,7 +17,7 @@ pBTransform(c1_1_content, {
 
 pBTransform(c1_1_img, {
 	hoverTarget: card1_1,
-	translate: 40,
+	translate: 50,
 	scale: 1.1,
 	tilt: 5,
 	duration: 200,
@@ -25,7 +25,7 @@ pBTransform(c1_1_img, {
 
 pBTransform(c1_1_trail_1, {
 	hoverTarget: card1_1,
-	translate: 20,
+	translate: 25,
 	translateReverse: true,
 	tilt: 15,
 	duration: 350,
@@ -33,7 +33,7 @@ pBTransform(c1_1_trail_1, {
 
 pBTransform(c1_1_trail_2, {
 	hoverTarget: card1_1,
-	translate: 60,
+	translate: 80,
 	translateReverse: true,
 	scale: .9,
 	tilt: 20,
@@ -42,7 +42,7 @@ pBTransform(c1_1_trail_2, {
 
 pBTransform(c1_1_trail_3, {
 	hoverTarget: card1_1,
-	translate: 100,
+	translate: 140,
 	translateReverse: true,
 	scale: .8,
 	tilt: 25,
@@ -60,39 +60,39 @@ pBTransform(c1_2_content, {
 	hoverTarget: card1_2,
 	translate: 50,
 	scale: 1.05,
-	rotate: 10,
+	rotate: 15,
 	duration: 200,
 })
 
 pBTransform(c1_2_img, {
 	hoverTarget: card1_2,
-	translate: 45,
+	translate: 65,
 	scale: 1.05,
-	rotate: 10,
+	rotate: 15,
 	duration: 200,
 })
 
 pBTransform(c1_2_trail_1, {
 	hoverTarget: card1_2,
-	translate: 15,	
-	rotate: 15,
+	translate: 35,	
+	rotate: 20,
 	duration: 350,
 })
 
 pBTransform(c1_2_trail_2, {
 	hoverTarget: card1_2,
-	translate: 10,
+	translate: 5,
 	translateReverse: true,
 	scale: .95,
-	rotate: 20,
+	rotate: 25,
 	duration: 500,
 })
 
 pBTransform(c1_2_trail_3, {
 	hoverTarget: card1_2,
-	translate: 40,
+	translate: 45,
 	translateReverse: true,
 	scale: .9,
-	rotate: 25,
+	rotate: 30,
 	duration: 650,
 })
