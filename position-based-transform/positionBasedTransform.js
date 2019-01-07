@@ -96,6 +96,9 @@ class PBTransform {
 		const options = this.options;
 		options.duration = (typeof options.duration === 'number') ? `${options.duration}ms` : options.duration;
 
+		// Add CSS will change property to transformTarget
+		options.transformTarget.style.willChange = "transform";
+		
 		return document.addEventListener('mousemove', (e) => {
 			if (this.disabled) return;
 			if (!this.getCanUpdate()) return;
@@ -138,7 +141,7 @@ class PBTransform {
 		const hYCenterPosition = hYStartPosition + (hRect.height / 2);
 		const hYOffset = hYCenterPosition - mouseY;
 		const hYOffsetPercent = hYOffset / (hRect.height / 2) * -100;
-		// Determine how far mouse is from middle of hoverTarget's center for the hypotenuse
+		// Determine how far mouse is from middle of hoverTarget's center for the hypotenuse		
 		const hypotenuseLength = Math.hypot(hRect.width / 2, hRect.height / 2);
 		const hHOffset = Math.hypot(hXOffset, hYOffset);
 		const hHOffsetPercent = hHOffset / hypotenuseLength * 100;
