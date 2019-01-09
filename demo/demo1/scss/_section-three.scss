@@ -1,0 +1,9 @@
+// Media Queries
+$small-bp: "screen and (max-width : 767px)";
+$medium-bp: "screen and (min-width : 768px)";
+$large-bp: "screen and (min-width : 992px)";
+#section-three {
+  background-color: #fff;  
+  .card {
+  }
+}

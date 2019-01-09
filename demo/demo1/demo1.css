@@ -79,9 +79,18 @@
 }
 
 #section-two {
-  background-image: url("./images/card2-1.jpg");
+  overflow: hidden;
+}
+#section-two .section-bg {
+  background-color: #313438;
   background-size: cover;
   background-position: center;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  transform: scale(1.1);
+  transition-property: opacity, transform;
+  transition-duration: 100ms;
 }
 #section-two .section-cover {
   position: absolute;
@@ -160,6 +169,9 @@
   z-index: 3;
 }
 
+#section-three {
+  background-color: #fff;
+}
 a {
   text-decoration-line: none;
 }

@@ -3,9 +3,18 @@ $small-bp: "screen and (max-width : 767px)";
 $medium-bp: "screen and (min-width : 768px)";
 $large-bp: "screen and (min-width : 992px)";
 #section-two {
-  background-image: url('./images/card2-1.jpg');
-  background-size: cover;
-  background-position: center;
+  overflow: hidden;
+  .section-bg {    
+    background-color: #313438;
+    background-size: cover;
+    background-position: center;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    transform: scale(1.1);
+    transition-property: opacity, transform;    
+    transition-duration: 100ms;
+  }
   .section-cover {
     position: absolute;
     height: 100%;

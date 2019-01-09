@@ -65,6 +65,7 @@ class PBTransform {
 			duration: 200,
 			easing: "cubic-bezier(0.215, 0.61, 0.355, 1)", //aka easeOutCubic
 			resetOnMouseLeave: true,
+			snapBack: false,
 		};
 		// Create options from defaultOptions and passed in custom options
 		this.options = {
@@ -142,7 +143,7 @@ class PBTransform {
 		const hYOffset = hYCenterPosition - mouseY;
 		const hYOffsetPercent = hYOffset / (hRect.height / 2) * -100;
 		// Determine how far mouse is from middle of hoverTarget's center for the hypotenuse		
-		const hypotenuseLength = Math.hypot(hRect.width / 2, hRect.height / 2);
+		const hypotenuseMaxLength = Math.hypot(hRect.width / 2, hRect.height / 2);
 		const hHOffset = Math.hypot(hXOffset, hYOffset);
 		const hHOffsetPercent = hHOffset / hypotenuseLength * 100;
 
@@ -298,7 +299,8 @@ class PBTransform {
 	};
 
 	// Function to reset position of transform target
-	resetPosition() {
+	resetPosition() {		
+		if (this.options.snapBack) this.transformTarget.style.transitionDuration = "";
 		this.transformTarget.style.transform = (this.options.tiltX || this.options.tiltY) ? `perspective(${this.options.perspective}px)` : '';
 	};
 
