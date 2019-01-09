@@ -8,44 +8,41 @@ const c1_1_trail_3 = document.getElementById('c1_1_trail_3');
 
 pBTransform(c1_1_content, {
 	hoverTarget: card1_1,
-	translate: 40,
-	scale: 1.1,
-	tilt: 10,
-	// tiltReverse: true,
+	translateX: 60,
+	rotate: 30,
+	rotateStyle: 2,
 	duration: 200,
 })
 
 pBTransform(c1_1_img, {
 	hoverTarget: card1_1,
-	translate: 50,
-	scale: 1.1,
-	tilt: 5,
+	translateX: 60,
+	rotate: 30,
+	rotateStyle: 2,
 	duration: 200,
 })
 
 pBTransform(c1_1_trail_1, {
 	hoverTarget: card1_1,
-	translate: 25,
-	translateReverse: true,
-	tilt: 15,
+	translateX: 60,
+	rotate: 45,
+	rotateStyle: 2,
 	duration: 350,
 })
 
 pBTransform(c1_1_trail_2, {
 	hoverTarget: card1_1,
-	translate: 80,
-	translateReverse: true,
-	scale: .9,
-	tilt: 20,
+	translateX: 60,
+	rotate: 60,
+	rotateStyle: 2,
 	duration: 500,
 })
 
 pBTransform(c1_1_trail_3, {
 	hoverTarget: card1_1,
-	translate: 140,
-	translateReverse: true,
-	scale: .8,
-	tilt: 25,
+	translateX: 60,
+	rotate: 75,
+	rotateStyle: 2,
 	duration: 650,
 })
 
@@ -74,7 +71,7 @@ pBTransform(c1_2_img, {
 
 pBTransform(c1_2_trail_1, {
 	hoverTarget: card1_2,
-	translate: 35,	
+	translate: 35,
 	rotate: 20,
 	duration: 350,
 })
