@@ -44,13 +44,11 @@ pBTransform(s2_bg, {
 pBTransform(c2_2_content, {
 	hoverTarget: card2_2,
 	tilt: 25,
-	tiltReverse: true,
 })
 
 pBTransform(c2_2_img, {
 	hoverTarget: card2_2,
 	tilt: 25,
-	tiltReverse: true,
 })
 
 pBTransform(s2_bg, {
