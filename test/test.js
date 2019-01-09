@@ -15,17 +15,19 @@ const overflowImgBox = document.getElementById('overflow-img-box');
 
 const options = {
 //	translateX: "50px",
-	// translateY: "50px",	
-	tilt: 15,
+	// translateY: "50px",		
 	// rotate: 35,
-	// rotateStyle: 4,	
+	// rotateStyle: 2,	
 	// scale: 1.1
 	// tiltReverse: true,
 	// translateYReverse: true,	
 	// rotateStyle: 3,
-//	initialTransform: {
-//		rotateZ: "360deg"
-//	},
+	// initialTransform: {
+	//		rotateZ: "360deg"
+	// },
+	onChange: (offset) => {
+		console.log(offset.h);
+	},
 	enterCB: () => console.log('entering'),
 	leaveCB: () => console.log('leaving'),
 }

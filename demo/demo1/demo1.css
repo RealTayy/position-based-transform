@@ -4,6 +4,23 @@
 
 .f-1-2 {
   font-family: "Crimson Text", serif;
+  font-style: italic;
+}
+
+.f-2-1 {
+  font-family: "Staatliches", cursive;
+}
+
+.f-2-2 {
+  font-family: "Staatliches", cursive;
+}
+
+.f-3-1 {
+  font-family: "Permanent Marker", cursive;
+}
+
+.f-3-2 {
+  font-family: "Charm", cursive;
 }
 
 #section-one {
@@ -16,8 +33,7 @@
   width: 100%;
 }
 #section-one .card figcaption {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   padding: 20px;
   color: #fff;
   z-index: 5;
@@ -71,9 +87,18 @@
 }
 
 #section-two {
-  background-image: url("./images/card2-1.jpg");
+  overflow: hidden;
+}
+#section-two .section-bg {
+  background-color: #313438;
   background-size: cover;
   background-position: center;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  transform: scale(1.1);
+  transition-property: opacity, transform;
+  transition-duration: 100ms;
 }
 #section-two .section-cover {
   position: absolute;
@@ -81,58 +106,52 @@
   width: 100%;
   background-color: #313438;
   opacity: 1;
-  -webkit-transition-duration: 100ms;
-       -o-transition-duration: 100ms;
-          transition-duration: 100ms;
+  transition-duration: 100ms;
 }
 #section-two .card {
-  -webkit-transition-duration: 200ms;
-       -o-transition-duration: 200ms;
-          transition-duration: 200ms;
-  -webkit-filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.75));
-          filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.75));
+  transition-duration: 200ms;
+  filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.75));
 }
 #section-two .card figcaption {
-  -webkit-transition-duration: 200ms;
-       -o-transition-duration: 200ms;
-          transition-duration: 200ms;
-  -webkit-transform: perspective(500px);
-          transform: perspective(500px);
-  -webkit-transform-style: preserve-3d;
-          transform-style: preserve-3d;
+  transition-duration: 200ms;
+  transform: perspective(500px);
+  transform-style: preserve-3d;
   position: relative;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   color: #fff;
   z-index: 5;
 }
 #section-two .card figcaption .box {
   position: absolute;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-  -webkit-transform: translateZ(80px) scale(0.8);
-          transform: translateZ(80px) scale(0.8);
+  box-sizing: border-box;
+  transform: translateZ(80px) scale(0.8);
   height: 100%;
   width: 100%;
   z-index: 5;
   border: 5px #fff solid;
 }
 #section-two .card figcaption .s2_text {
-  -webkit-transform: translateZ(160px) scale(0.7);
-          transform: translateZ(160px) scale(0.7);
-  -webkit-filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.95));
-          filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.95));
+  transform: translateZ(160px) scale(0.7);
+  filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.95));
   position: absolute;
-  padding: 50px;
-  bottom: 20px;
   font-size: 36px;
   font-weight: 900;
-  letter-spacing: 3px;
+  letter-spacing: 5px;
 }
 @media screen and (min-width : 768px) {
   #section-two .card figcaption .s2_text {
     font-size: 52px;
   }
+}
+#section-two .card figcaption .s2_text.c2_1 {
+  text-align: right;
+  right: 13%;
+  bottom: 19%;
+}
+#section-two .card figcaption .s2_text.c2_2 {
+  text-align: right;
+  right: 15.5%;
+  bottom: 16%;
 }
 @media screen and (min-width : 992px) {
   #section-two .card figcaption .s2_text {
@@ -142,7 +161,7 @@
 #section-two .card figcaption .s2_text .s2_subtext {
   font-size: 16px;
   font-weight: 300;
-  letter-spacing: 4px;
+  letter-spacing: 2px;
 }
 @media screen and (min-width : 768px) {
   #section-two .card figcaption .s2_text .s2_subtext {
@@ -158,22 +177,236 @@
   z-index: 3;
 }
 
+#section-three {
+  position: relative;
+  background-color: #fff;
+}
+#section-three .section-bg-container {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+#section-three .section-bg-container div {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+#section-three .section-bg-container .section-bg {
+  background-color: #fff;
+  background-image: url(./images/bg-3.jpg);
+  background-size: cover;
+  background-position: center;
+  transform: scale(1.06);
+}
+#section-three .section-bg-container .section-bg-cover {
+  background-image: url(./images/pixels.png);
+  background-repeat: repeat;
+  opacity: 0.001;
+  transition-duration: 400ms;
+}
+#section-three .section-bg-container .section-fog {
+  background-image: url(./images/fog.png);
+  background-size: cover;
+  background-position: center;
+  transform: scale(1.6);
+}
+#section-three .section-bg-container .section-fog-r {
+  background-image: url(./images/fog-r.png);
+  background-size: cover;
+  background-position: center;
+  transform: scale(1.2);
+}
+#section-three .card {
+  position: relative;
+  transition-duration: 400ms;
+}
+#section-three .card .card-img-container {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+#section-three .card .card-img-container .card-cover {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-image: url(./images/pixels.png);
+  background-repeat: repeat;
+  transition-duration: 400ms;
+}
+#section-three .card .card-img-container img {
+  filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.75));
+}
+#section-three .card figcaption {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  transition-duration: 400ms;
+}
+#section-three .card figcaption .s3_text {
+  color: white;
+  text-align: center;
+  font-size: 36px;
+  backface-visibility: hidden;
+  filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.75));
+}
+@media screen and (min-width : 768px) {
+  #section-three .card figcaption .s3_text {
+    font-size: 48px;
+  }
+}
+#section-three .card figcaption .caption-img img {
+  height: 150px;
+}
+@media screen and (min-width : 768px) {
+  #section-three .card figcaption .caption-img img {
+    height: 200px;
+  }
+}
+#section-three .card figcaption .s3_subtext {
+  color: white;
+  font-size: 16px;
+  filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.75));
+}
+@media screen and (min-width : 768px) {
+  #section-three .card figcaption .s3_subtext {
+    font-size: 24px;
+  }
+}
+#section-three .card figcaption .s3-text-wrapper,
+#section-three .card figcaption .caption-img,
+#section-three .card figcaption .s3-subtext-wrapper {
+  transition-duration: 400ms;
+}
+#section-three .card figcaption .caption-img img {
+  filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.75));
+}
+#section-three .card figcaption.hover .s3-text-wrapper {
+  transform: translate(-30px, -50px);
+}
+#section-three .card figcaption.hover .s3-text-wrapper .s3_text {
+  font-size: 48px;
+}
+@media screen and (min-width : 768px) {
+  #section-three .card figcaption.hover .s3-text-wrapper {
+    transform: translate(-40px, -70px);
+  }
+  #section-three .card figcaption.hover .s3-text-wrapper .s3_text {
+    font-size: 64px;
+  }
+}
+@media screen and (min-width : 992px) {
+  #section-three .card figcaption.hover .s3-text-wrapper {
+    transform: translate(-50px, -100px);
+  }
+  #section-three .card figcaption.hover .s3-text-wrapper .s3_text {
+    font-size: 72px;
+  }
+}
+#section-three .card figcaption.hover .s3-subtext-wrapper {
+  transform: translate(60px, -50px);
+}
+@media screen and (min-width : 768px) {
+  #section-three .card figcaption.hover .s3-subtext-wrapper {
+    transform: translate(80px, -70px);
+  }
+}
+@media screen and (min-width : 992px) {
+  #section-three .card figcaption.hover .s3-subtext-wrapper {
+    transform: translate(100px, -100px);
+  }
+}
+#section-three .card figcaption.hover .caption-img {
+  transform: translate(50px, 90px);
+}
+@media screen and (min-width : 768px) {
+  #section-three .card figcaption.hover .caption-img {
+    transform: translate(80px, 120px);
+  }
+}
+@media screen and (min-width : 992px) {
+  #section-three .card figcaption.hover .caption-img {
+    transform: translate(100px, 150px);
+  }
+}
+#section-three .card figcaption.hover .s3-text-wrapper-2 {
+  transform: translate(30px, -50px);
+}
+#section-three .card figcaption.hover .s3-text-wrapper-2 .s3_text {
+  font-size: 48px;
+}
+@media screen and (min-width : 768px) {
+  #section-three .card figcaption.hover .s3-text-wrapper-2 {
+    transform: translate(40px, -70px);
+  }
+  #section-three .card figcaption.hover .s3-text-wrapper-2 .s3_text {
+    font-size: 64px;
+  }
+}
+@media screen and (min-width : 992px) {
+  #section-three .card figcaption.hover .s3-text-wrapper-2 {
+    transform: translate(50px, -100px);
+  }
+  #section-three .card figcaption.hover .s3-text-wrapper-2 .s3_text {
+    font-size: 72px;
+  }
+}
+#section-three .card figcaption.hover .s3-subtext-wrapper-2 {
+  transform: translate(30px, -100px);
+}
+@media screen and (min-width : 768px) {
+  #section-three .card figcaption.hover .s3-subtext-wrapper-2 {
+    transform: translate(40px, -150px);
+  }
+}
+@media screen and (min-width : 992px) {
+  #section-three .card figcaption.hover .s3-subtext-wrapper-2 {
+    transform: translate(80px, -180px);
+  }
+}
+#section-three .card figcaption.hover .caption-img-2 {
+  transform: translate(-50px, 90px);
+}
+@media screen and (min-width : 768px) {
+  #section-three .card figcaption.hover .caption-img-2 {
+    transform: translate(-80px, 120px);
+  }
+}
+@media screen and (min-width : 992px) {
+  #section-three .card figcaption.hover .caption-img-2 {
+    transform: translate(-100px, 150px);
+  }
+}
+#section-three .card .trail {
+  transition-duration: 400ms;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 20px;
+  left: -20px;
+  filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.85));
+  background-image: repeating-linear-gradient(45deg, white 0px, white 10px, rgba(255, 255, 255, 0) 10px, rgba(255, 255, 255, 0) 20px);
+}
+@media screen and (max-width : 767px) {
+  #section-three .card .trail {
+    top: 10px;
+    left: -10px;
+  }
+}
+
 a {
-  -webkit-text-decoration-line: none;
-          text-decoration-line: none;
+  text-decoration-line: none;
 }
 
 .hoverable {
   opacity: 1;
-  -webkit-transition-duration: 0.4s;
-       -o-transition-duration: 0.4s;
-          transition-duration: 0.4s;
+  transition-duration: 0.4s;
 }
 
 .hoverable:hover {
   opacity: 0.75;
-  -webkit-filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.85));
-          filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.85));
+  filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.85));
 }
 
 .page-header {
@@ -197,12 +430,8 @@ a {
   padding-top: 20px;
 }
 .page-header nav .nav-bar {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  justify-content: center;
 }
 .page-header nav .nav-bar .nav-link {
   display: block;
@@ -221,18 +450,10 @@ section {
 
 .content-wrapper {
   padding: 169px 0;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 .content-wrapper figure.card {
   position: relative;
@@ -261,7 +482,7 @@ section {
     margin: 10px 60px;
   }
 }
-.content-wrapper figure.card img {
+.content-wrapper figure.card img.card_img {
   position: absolute;
   height: 100%;
   width: 100%;
@@ -273,3 +494,5 @@ section {
   height: 100%;
   width: 100%;
 }
+
+/*# sourceMappingURL=demo1.css.map */

@@ -1,1 +1,11 @@
-- Fix way offset.h is calculated
+X Fix way offset.h is calculated
+X -Automatically add will-change to transformTargets
+X resetOnMouseLeave	default on documentation
+X Snapback feature
+- WiggleBack feature
+- Minify and link min version to demo pls.
+
+X Bug Fix: Passing in a rotateReverse while in rotateStyle:1 bugs out due to misnamed variable.
+
+Known Bug:
+> Using units other then pixels on initialTranform makes things laggy AF! need to do it in JS rather CSS

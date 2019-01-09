@@ -39,7 +39,7 @@ class PBTransform {
 		const defaultOptions = {
 			transformTarget: transformTarget,
 			hoverTarget: transformTarget,
-			updateRate: 40,
+			updateRate: 0,
 			translateX: options.translate, // Just FYI these properties take a string like "0px"
 			translateY: options.translate, // Just FYI these properties take a string like "0px"
 			translateXReverse: options.translateReverse,
@@ -65,6 +65,7 @@ class PBTransform {
 			duration: 200,
 			easing: "cubic-bezier(0.215, 0.61, 0.355, 1)", //aka easeOutCubic
 			resetOnMouseLeave: true,
+			snapBack: false,
 		};
 		// Create options from defaultOptions and passed in custom options
 		this.options = {
@@ -95,6 +96,9 @@ class PBTransform {
 		// Calculate options
 		const options = this.options;
 		options.duration = (typeof options.duration === 'number') ? `${options.duration}ms` : options.duration;
+
+		// Add CSS will change property to transformTarget
+		options.transformTarget.style.willChange = "transform";
 
 		return document.addEventListener('mousemove', (e) => {
 			if (this.disabled) return;
@@ -138,10 +142,26 @@ class PBTransform {
 		const hYCenterPosition = hYStartPosition + (hRect.height / 2);
 		const hYOffset = hYCenterPosition - mouseY;
 		const hYOffsetPercent = hYOffset / (hRect.height / 2) * -100;
-		// Determine how far mouse is from middle of hoverTarget's center for the hypotenuse
-		const hypotenuseLength = Math.hypot(hRect.width / 2, hRect.height / 2);
+		// Determine how far mouse is from middle of hoverTarget's center for the hypotenuse		
+		let hypotenuseMaxLength, hypotenuseLength;
+		if (Math.abs(hXOffsetPercent) === Math.abs(hYOffsetPercent)) {
+			// If on oblique asymptote line of hoverTarget
+			hypotenuseMaxLength = Math.hypot(hRect.width / 2, hRect.height / 2);
+		} else if (Math.abs(hXOffsetPercent) > Math.abs(hYOffsetPercent)) {
+			// If on horizontal quadrant of hoverTarget
+			const maxXLength = hRect.width / 2;
+			const ratio = maxXLength/hXOffset;			
+			const yLength = hYOffset * ratio
+			hypotenuseMaxLength = Math.hypot(maxXLength, yLength);			
+		} else {
+			// If on vertical quadrant of hoverTarget
+			const maxYLength = hRect.height / 2;
+			const ratio = maxYLength/hYOffset;			
+			const xLength = hXOffset * ratio
+			hypotenuseMaxLength = Math.hypot(xLength, maxYLength);			
+		}
 		const hHOffset = Math.hypot(hXOffset, hYOffset);
-		const hHOffsetPercent = hHOffset / hypotenuseLength * 100;
+		const hHOffsetPercent = hHOffset / hypotenuseMaxLength * 100;
 
 		return { x: hXOffsetPercent, y: hYOffsetPercent, h: hHOffsetPercent };
 	};
@@ -234,7 +254,7 @@ class PBTransform {
 					rotateValueY = (multiplierY * offset.y) / 100 || 1;
 					rotateZValue = totalRotate * (rotateValueX * rotateValueY) / maxMultiplier;
 					// If any reverse option were passed then reverse it.
-					if (rotateXReverse || rotateYReverse) rotateValueZ *= -1;
+					if (rotateXReverse || rotateYReverse) rotateZValue *= -1;
 					break;
 				case 2:
 					// If any reverse option were passed then reverse it.
@@ -296,6 +316,7 @@ class PBTransform {
 
 	// Function to reset position of transform target
 	resetPosition() {
+		if (this.options.snapBack) this.transformTarget.style.transitionDuration = "";
 		this.transformTarget.style.transform = (this.options.tiltX || this.options.tiltY) ? `perspective(${this.options.perspective}px)` : '';
 	};
 
