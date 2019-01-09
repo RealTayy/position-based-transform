@@ -15,6 +15,14 @@
   font-family: "Staatliches", cursive;
 }
 
+.f-3-1 {
+  font-family: "Permanent Marker", cursive;
+}
+
+.f-3-2 {
+  font-family: "Charm", cursive;
+}
+
 #section-one {
   background-color: #fff;
 }
@@ -170,8 +178,223 @@
 }
 
 #section-three {
+  position: relative;
   background-color: #fff;
 }
+#section-three .section-bg-container {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+#section-three .section-bg-container div {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+#section-three .section-bg-container .section-bg {
+  background-color: #fff;
+  background-image: url(./images/bg-3.jpg);
+  background-size: cover;
+  background-position: center;
+  transform: scale(1.06);
+}
+#section-three .section-bg-container .section-bg-cover {
+  background-image: url(./images/pixels.png);
+  background-repeat: repeat;
+  opacity: 0.001;
+  transition-duration: 400ms;
+}
+#section-three .section-bg-container .section-fog {
+  background-image: url(./images/fog.png);
+  background-size: cover;
+  background-position: center;
+  transform: scale(1.6);
+}
+#section-three .section-bg-container .section-fog-r {
+  background-image: url(./images/fog-r.png);
+  background-size: cover;
+  background-position: center;
+  transform: scale(1.2);
+}
+#section-three .card {
+  position: relative;
+  transition-duration: 400ms;
+}
+#section-three .card .card-img-container {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+#section-three .card .card-img-container .card-cover {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-image: url(./images/pixels.png);
+  background-repeat: repeat;
+  transition-duration: 400ms;
+}
+#section-three .card .card-img-container img {
+  filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.75));
+}
+#section-three .card figcaption {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  transition-duration: 400ms;
+}
+#section-three .card figcaption .s3_text {
+  color: white;
+  text-align: center;
+  font-size: 36px;
+  backface-visibility: hidden;
+  filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.75));
+}
+@media screen and (min-width : 768px) {
+  #section-three .card figcaption .s3_text {
+    font-size: 48px;
+  }
+}
+#section-three .card figcaption .caption-img img {
+  height: 150px;
+}
+@media screen and (min-width : 768px) {
+  #section-three .card figcaption .caption-img img {
+    height: 200px;
+  }
+}
+#section-three .card figcaption .s3_subtext {
+  color: white;
+  font-size: 16px;
+  filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.75));
+}
+@media screen and (min-width : 768px) {
+  #section-three .card figcaption .s3_subtext {
+    font-size: 24px;
+  }
+}
+#section-three .card figcaption .s3-text-wrapper,
+#section-three .card figcaption .caption-img,
+#section-three .card figcaption .s3-subtext-wrapper {
+  transition-duration: 400ms;
+}
+#section-three .card figcaption .caption-img img {
+  filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.75));
+}
+#section-three .card figcaption.hover .s3-text-wrapper {
+  transform: translate(-30px, -50px);
+}
+#section-three .card figcaption.hover .s3-text-wrapper .s3_text {
+  font-size: 48px;
+}
+@media screen and (min-width : 768px) {
+  #section-three .card figcaption.hover .s3-text-wrapper {
+    transform: translate(-40px, -70px);
+  }
+  #section-three .card figcaption.hover .s3-text-wrapper .s3_text {
+    font-size: 64px;
+  }
+}
+@media screen and (min-width : 992px) {
+  #section-three .card figcaption.hover .s3-text-wrapper {
+    transform: translate(-50px, -100px);
+  }
+  #section-three .card figcaption.hover .s3-text-wrapper .s3_text {
+    font-size: 72px;
+  }
+}
+#section-three .card figcaption.hover .s3-subtext-wrapper {
+  transform: translate(60px, -50px);
+}
+@media screen and (min-width : 768px) {
+  #section-three .card figcaption.hover .s3-subtext-wrapper {
+    transform: translate(80px, -70px);
+  }
+}
+@media screen and (min-width : 992px) {
+  #section-three .card figcaption.hover .s3-subtext-wrapper {
+    transform: translate(100px, -100px);
+  }
+}
+#section-three .card figcaption.hover .caption-img {
+  transform: translate(50px, 90px);
+}
+@media screen and (min-width : 768px) {
+  #section-three .card figcaption.hover .caption-img {
+    transform: translate(80px, 120px);
+  }
+}
+@media screen and (min-width : 992px) {
+  #section-three .card figcaption.hover .caption-img {
+    transform: translate(100px, 150px);
+  }
+}
+#section-three .card figcaption.hover .s3-text-wrapper-2 {
+  transform: translate(30px, -50px);
+}
+#section-three .card figcaption.hover .s3-text-wrapper-2 .s3_text {
+  font-size: 48px;
+}
+@media screen and (min-width : 768px) {
+  #section-three .card figcaption.hover .s3-text-wrapper-2 {
+    transform: translate(40px, -70px);
+  }
+  #section-three .card figcaption.hover .s3-text-wrapper-2 .s3_text {
+    font-size: 64px;
+  }
+}
+@media screen and (min-width : 992px) {
+  #section-three .card figcaption.hover .s3-text-wrapper-2 {
+    transform: translate(50px, -100px);
+  }
+  #section-three .card figcaption.hover .s3-text-wrapper-2 .s3_text {
+    font-size: 72px;
+  }
+}
+#section-three .card figcaption.hover .s3-subtext-wrapper-2 {
+  transform: translate(30px, -100px);
+}
+@media screen and (min-width : 768px) {
+  #section-three .card figcaption.hover .s3-subtext-wrapper-2 {
+    transform: translate(40px, -150px);
+  }
+}
+@media screen and (min-width : 992px) {
+  #section-three .card figcaption.hover .s3-subtext-wrapper-2 {
+    transform: translate(80px, -180px);
+  }
+}
+#section-three .card figcaption.hover .caption-img-2 {
+  transform: translate(-50px, 90px);
+}
+@media screen and (min-width : 768px) {
+  #section-three .card figcaption.hover .caption-img-2 {
+    transform: translate(-80px, 120px);
+  }
+}
+@media screen and (min-width : 992px) {
+  #section-three .card figcaption.hover .caption-img-2 {
+    transform: translate(-100px, 150px);
+  }
+}
+#section-three .card .trail {
+  transition-duration: 400ms;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 20px;
+  left: -20px;
+  filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.85));
+  background-image: repeating-linear-gradient(45deg, white 0px, white 10px, rgba(255, 255, 255, 0) 10px, rgba(255, 255, 255, 0) 20px);
+}
+@media screen and (max-width : 767px) {
+  #section-three .card .trail {
+    top: 10px;
+    left: -10px;
+  }
+}
+
 a {
   text-decoration-line: none;
 }
@@ -259,7 +482,7 @@ section {
     margin: 10px 60px;
   }
 }
-.content-wrapper figure.card img {
+.content-wrapper figure.card img.card_img {
   position: absolute;
   height: 100%;
   width: 100%;

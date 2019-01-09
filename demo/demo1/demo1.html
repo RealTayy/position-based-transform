@@ -15,18 +15,20 @@
 	<link rel="stylesheet" href="./reset.css">
 	<!-- Page CSS -->
 	<link rel="stylesheet" href="./demo1.css">
-	<!-- Font: Julius Sans One -->
 	<!-- font-family: 'Julius Sans One', sans-serif; -->
 	<link href="https://fonts.googleapis.com/css?family=Julius+Sans+One" rel="stylesheet">
-	<!-- Font: Crimson Text -->
 	<!-- font-family: 'Crimson Text', serif; -->
 	<link href="https://fonts.googleapis.com/css?family=Crimson+Text" rel="stylesheet">
 	<!-- font-family: 'Staatliches', cursive; -->
 	<link href="https://fonts.googleapis.com/css?family=Staatliches" rel="stylesheet">
 	<!-- font-family: 'Montserrat', sans-serif; -->
 	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Sarabun" rel="stylesheet">
-
+	<!-- font-family: 'Permanent Marker', cursive; -->
+	<link href="https://fonts.googleapis.com/css?family=Permanent+Marker" rel="stylesheet">
+	<!-- font-family: 'Fauna One', serif; -->
+	<link href="https://fonts.googleapis.com/css?family=Fauna+One" rel="stylesheet">
+	<!-- font-family: 'Charm', cursive; -->
+	<link href="https://fonts.googleapis.com/css?family=Charm" rel="stylesheet">
 </head>
 
 <body>
@@ -65,7 +67,7 @@
 		<div class="content">
 			<div class="content-wrapper">
 				<figure id="card1_1" class="card">
-					<img class="card_img" id="c1_1_img" src="./images/card1-1.jpeg" alt="c1_1">
+					<img class="card_img preload_img" id="c1_1_img" src="./images/card1-1.jpeg" alt="c1_1">
 					<figcaption id="c1_1_content">
 						<div id="c1_1_text" class="s1_text f-1-1">
 							Chicago
@@ -77,7 +79,7 @@
 					<div id="c1_1_trail_3" class="s1_trail_3 trail"></div>
 				</figure>
 				<figure id="card1_2" class="card">
-					<img class="card_img" id="c1_2_img" src="./images/card1-2.jpeg" alt="c1_2">
+					<img class="card_img preload_img" id="c1_2_img" src="./images/card1-2.jpeg" alt="c1_2">
 					<figcaption id="c1_2_content">
 						<div id="c1_2_text" class="s1_text f-1-1">
 							New<br>York
@@ -97,7 +99,7 @@
 		<div class="content">
 			<div class="content-wrapper">
 				<figure id="card2_1" class="card">
-					<img class="card_img" id="c2_1_img" src="./images/card2-1.jpg" alt="c2_1">
+					<img class="card_img preload_img" id="c2_1_img" src="./images/card2-1.jpg" alt="c2_1">
 					<figcaption id="c2_1_content">
 						<div class="box"></div>
 						<div id="c2_1_text" class="s2_text f-2-1 c2_1">
@@ -107,7 +109,7 @@
 					</figcaption>
 				</figure>
 				<figure id="card2_2" class="card">
-					<img class="card_img" id="c2_2_img" src="./images/card2-2.jpg" alt="c2_2">
+					<img class="card_img preload_img" id="c2_2_img" src="./images/card2-2.jpg" alt="c2_2">
 					<figcaption id="c2_2_content">
 						<div class="box"></div>
 						<div id="c2_2_text" class="s2_text f-2-1 c2_2">
@@ -120,23 +122,52 @@
 		</div>
 	</section>
 	<section id="section-three">
+		<div id="s3_bg_container" class="section-bg-container">
+			<div id="s3_bg" class="section-bg preload_img"></div>
+			<div id="s3_fog" class="section-fog preload_img"></div>
+			<div id="s3_fog_r" class="section-fog-r preload_img"></div>
+			<div id="s3_bg_cover" class="section-bg-cover preload_img"></div>
+		</div>
 		<div class="content">
 			<div class="content-wrapper">
 				<figure id="card3_1" class="card">
-					<img class="card_img" id="c3_1_img" src="./images/card3-1.jpg" alt="c3_1">
-					<figcaption id="c3_1_content">						
-						<div id="c3_1_text" class="s3_text f-2-1 c3_1">
-							Seattle
-							<div id="c3_1_subtext" class="s3_subtext f-2-2 c3_1">Emerald City</div>
+					<div id="c3_1_trail" class="trail"> </div>
+					<div id="card3_1_img_container" class="card-img-container">
+						<img class="card_img preload_img c3_1_img" id="c3_1_img" src="./images/card3-1.jpg" alt="c3_1">
+						<div id="c3_1_cover" class="card-cover"></div>
+					</div>
+					<figcaption id="c3_1_content">
+						<div class="s3-text-wrapper">
+							<div id="c3_1_text" class="s3_text f-3-1 c3_1">
+								Birmingham
+							</div>
+						</div>
+						<div class="s3-subtext-wrapper">
+							<div id="c3_1_subtext" class="s3_subtext f-3-2 c3_1">City of a Thousand Trades
+							</div>
+						</div>
+						<div id="c3_1_img_wrapper" class="caption-img">
+							<img id="c3_1_caption_img" class="preload_img" src="./images/m_2.png" alt="m_2">
 						</div>
 					</figcaption>
 				</figure>
 				<figure id="card3_2" class="card">
-					<img class="card_img" id="c3_2_img" src="./images/card3-2.jpg" alt="c3_2">
-					<figcaption id="c3_3_content">						
-						<div id="c3_2_text" class="s3_text f-2-1 c3_2">
-							San<br>Diego
-							<div id="c3_2_subtext" class="s3_subtext f-2-2 c3_2">City in Motion</div>
+					<div id="c3_2_trail" class="trail"> </div>
+					<div id="card3_2_img_container" class="card-img-container">
+						<img class="card_img preload_img c3_2_img" id="c3_2_img" src="./images/card3-2.jpg" alt="c3_2">
+						<div id="c3_2_cover" class="card-cover"></div>
+					</div>
+					<figcaption id="c3_2_content">
+						<div class="s3-text-wrapper s3-text-wrapper-2">
+							<div id="c3_2_text" class="s3_text f-3-1 c3_2">
+								Glasgow
+							</div>
+						</div>
+						<div class="s3-subtext-wrapper s3-subtext-wrapper-2">
+							<div id="c3_2_subtext" class="s3_subtext f-3-2 c3_2">Red Clydside City</div>
+						</div>
+						<div id="c3_2_img_wrapper" class="caption-img caption-img-2">
+							<img id="c3_2_caption_img" class="preload_img" src="./images/m_1.png" alt="m_2">
 						</div>
 					</figcaption>
 				</figure>
@@ -148,6 +179,7 @@
 	<script src="./javascript/demo1.js"></script>
 	<script src="./javascript/section-1.js"></script>
 	<script src="./javascript/section-2.js"></script>
+	<script src="./javascript/section-3.js"></script>
 </body>
 
 </html>
