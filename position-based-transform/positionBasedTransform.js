@@ -99,7 +99,7 @@ class PBTransform {
 
 		// Add CSS will change property to transformTarget
 		options.transformTarget.style.willChange = "transform";
-		
+
 		return document.addEventListener('mousemove', (e) => {
 			if (this.disabled) return;
 			if (!this.getCanUpdate()) return;
@@ -143,9 +143,25 @@ class PBTransform {
 		const hYOffset = hYCenterPosition - mouseY;
 		const hYOffsetPercent = hYOffset / (hRect.height / 2) * -100;
 		// Determine how far mouse is from middle of hoverTarget's center for the hypotenuse		
-		const hypotenuseMaxLength = Math.hypot(hRect.width / 2, hRect.height / 2);
+		let hypotenuseMaxLength, hypotenuseLength;
+		if (Math.abs(hXOffsetPercent) === Math.abs(hYOffsetPercent)) {
+			// If on oblique asymptote line of hoverTarget
+			hypotenuseMaxLength = Math.hypot(hRect.width / 2, hRect.height / 2);
+		} else if (Math.abs(hXOffsetPercent) > Math.abs(hYOffsetPercent)) {
+			// If on horizontal quadrant of hoverTarget
+			const maxXLength = hRect.width / 2;
+			const ratio = maxXLength/hXOffset;			
+			const yLength = hYOffset * ratio
+			hypotenuseMaxLength = Math.hypot(maxXLength, yLength);			
+		} else {
+			// If on vertical quadrant of hoverTarget
+			const maxYLength = hRect.height / 2;
+			const ratio = maxYLength/hYOffset;			
+			const xLength = hXOffset * ratio
+			hypotenuseMaxLength = Math.hypot(xLength, maxYLength);			
+		}
 		const hHOffset = Math.hypot(hXOffset, hYOffset);
-		const hHOffsetPercent = hHOffset / hypotenuseLength * 100;
+		const hHOffsetPercent = hHOffset / hypotenuseMaxLength * 100;
 
 		return { x: hXOffsetPercent, y: hYOffsetPercent, h: hHOffsetPercent };
 	};
@@ -299,7 +315,7 @@ class PBTransform {
 	};
 
 	// Function to reset position of transform target
-	resetPosition() {		
+	resetPosition() {
 		if (this.options.snapBack) this.transformTarget.style.transitionDuration = "";
 		this.transformTarget.style.transform = (this.options.tiltX || this.options.tiltY) ? `perspective(${this.options.perspective}px)` : '';
 	};
