@@ -59,21 +59,23 @@ a {
 
 section {
   position: relative;
-  width: 100%;
-  // overflow: hidden;
+  width: 100%; // overflow: hidden;
 }
 
 .content-wrapper {
-  padding: 169px 0;
+  padding: 100px 0;
   display: flex;
   flex-direction: row;
   justify-content: center;
   flex-wrap: wrap;
+  @media #{$medium-bp} {
+    padding: 180px 0;
+  }
   figure.card {
     position: relative;
     width: 250px;
     height: 250px;
-    margin: 10px;
+    margin: 40px 10px;
     @media #{$medium-bp} {
       width: 330px;
       height: 330px;

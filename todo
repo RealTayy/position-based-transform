@@ -1,12 +1,4 @@
 - WiggleBack feature
-<<<<<<< HEAD
-- Only calc when needed
-? Minify and link min version to demo pls.
-=======
-X Minify and link min version to demo pls.
-
-X Bug Fix: Passing in a rotateReverse while in rotateStyle:1 bugs out due to misnamed variable.
->>>>>>> e8fdc7f10d3024a31f54fbd32a07eae1274962bd
 
 Known Bug:
 > Using units other then pixels on initialTranform makes things laggy AF! need to do it in JS rather CSS

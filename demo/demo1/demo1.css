@@ -449,17 +449,22 @@ section {
 }
 
 .content-wrapper {
-  padding: 169px 0;
+  padding: 100px 0;
   display: flex;
   flex-direction: row;
   justify-content: center;
   flex-wrap: wrap;
 }
+@media screen and (min-width : 768px) {
+  .content-wrapper {
+    padding: 180px 0;
+  }
+}
 .content-wrapper figure.card {
   position: relative;
   width: 250px;
   height: 250px;
-  margin: 10px;
+  margin: 40px 10px;
 }
 @media screen and (min-width : 768px) {
   .content-wrapper figure.card {
