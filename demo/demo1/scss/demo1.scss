@@ -2,13 +2,17 @@
 @import "./section-one";
 @import "./section-two";
 @import "./section-three";
-// @import "./section-four";
+@import "./section-four";
+// @import "./section-five";
 // Media Queries
 $small-bp: "screen and (max-width : 767px)";
 $medium-bp: "screen and (min-width : 768px)";
 $large-bp: "screen and (min-width : 992px)";
 $xlarge-bp: "screen and (min-width : 1200px)";
 // Unstyle stupid default a tag
+body {
+  background: #111;
+}
 a {
   text-decoration-line: none;
 }
@@ -63,7 +67,7 @@ section {
 }
 
 .content-wrapper {
-  padding: 100px 0;
+  padding: 60px 0;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -75,7 +79,7 @@ section {
     position: relative;
     width: 250px;
     height: 250px;
-    margin: 40px 10px;
+    margin: 30px 10px;
     @media #{$medium-bp} {
       width: 330px;
       height: 330px;

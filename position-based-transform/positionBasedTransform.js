@@ -150,15 +150,15 @@ class PBTransform {
 		} else if (Math.abs(hXOffsetPercent) > Math.abs(hYOffsetPercent)) {
 			// If on horizontal quadrant of hoverTarget
 			const maxXLength = hRect.width / 2;
-			const ratio = maxXLength/hXOffset;			
+			const ratio = maxXLength / hXOffset;
 			const yLength = hYOffset * ratio
-			hypotenuseMaxLength = Math.hypot(maxXLength, yLength);			
+			hypotenuseMaxLength = Math.hypot(maxXLength, yLength);
 		} else {
 			// If on vertical quadrant of hoverTarget
 			const maxYLength = hRect.height / 2;
-			const ratio = maxYLength/hYOffset;			
+			const ratio = maxYLength / hYOffset;
 			const xLength = hXOffset * ratio
-			hypotenuseMaxLength = Math.hypot(xLength, maxYLength);			
+			hypotenuseMaxLength = Math.hypot(xLength, maxYLength);
 		}
 		const hHOffset = Math.hypot(hXOffset, hYOffset);
 		const hHOffsetPercent = hHOffset / hypotenuseMaxLength * 100;
@@ -298,10 +298,25 @@ class PBTransform {
 
 		// Concatenate transform value(s) and built transformCSS from them if they exist or they have an initial value set.
 		const perpectiveCSS = (rotateXValue || rotateYValue) ? `perspective(${perspective}px)` : '';
-		const translateCSS = ((translateXValue || translateYValue || initialTranslateX !== "0px" || initialTranslateY !== "0px")) ? `translate(calc(${translateXValue + translateXUnit} + ${initialTranslateX}), calc(${translateYValue + translateYUnit} + ${initialTranslateY}))` : '';
-		const rotateXCSS = (rotateXValue || initialRotateX !== "0deg") ? `rotateX(calc(${rotateXValue || 0}deg + ${initialRotateX}))` : '';
-		const rotateYCSS = (rotateYValue || initialRotateY !== "0deg") ? `rotateY(calc(${rotateYValue || 0}deg + ${initialRotateY}))` : '';
-		const rotateZCSS = (rotateZValue || initialRotateZ !== "0deg") ? `rotateZ(calc(${rotateZValue || 0}deg + ${initialRotateZ}))` : '';
+		// Calculate TranslateCSS
+		let translateXCSS = (translateXValue) ? `${translateXValue + translateXUnit}` : '0';
+		if (initialTranslateX !== "0px") translateXCSS = `calc(${translateXCSS} + ${initialTranslateX})`;
+		let translateYCSS = (translateYValue) ? `${translateYValue + translateYUnit}` : '0';
+		if (initialTranslateY !== "0px") translateYCSS = `calc(${translateYCSS} + ${initialTranslateY})`;
+		const translateCSS = `translate(${translateXCSS}, ${translateYCSS})`;
+		// Calculate rotateXCSS
+		let rotateXCSS = (rotateXValue) ? `${rotateXValue}deg` : '0deg';
+		if (initialRotateX !== "0deg") rotateXCSS = `calc(${rotateXCSS} + ${initialRotateX})`;
+		rotateXCSS = (rotateXCSS !== '0deg') ? `rotateX(${rotateXCSS})` : '';
+		// Calculate rotateYCSS
+		let rotateYCSS = (rotateYValue) ? `${rotateYValue}deg` : '0deg';
+		if (initialRotateY !== "0deg") rotateYCSS = `calc(${rotateYCSS} + ${initialRotateY})`;
+		rotateYCSS = (rotateYCSS !== '0deg') ? `rotateY(${rotateYCSS})` : '';
+		// Calculate rotateZCSS
+		let rotateZCSS = (rotateZValue) ? `${rotateZValue}deg` : '0deg';
+		if (initialRotateZ !== "0deg") rotateZCSS = `calc(${rotateZCSS} + ${initialRotateZ})`;
+		rotateZCSS = (rotateZCSS !== '0deg') ? `rotateZ(${rotateZCSS})` : '';
+		// Calculate scaleCSS
 		const scaleCSS = (scale) ? `scale(${scale})` : '';
 		const transformCSS = `${perpectiveCSS} ${translateCSS} ${scaleCSS} ${rotateZCSS} ${rotateXCSS} ${rotateYCSS}`.trim();
 		// Set transform target's CSS

@@ -1,4 +1,5 @@
-- WiggleBack feature
+X No longer use calc 
+- Change js to min pls in demo1
 
 Known Bug:
 > Using units other then pixels on initialTranform makes things laggy AF! need to do it in JS rather CSS
